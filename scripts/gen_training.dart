@@ -2,7 +2,7 @@
 
 import 'dart:io';
 import 'dart:convert';
-import 'dart:math';
+import '../lib/training.dart';
 import '../lib/exercise.dart';
 
 extension RangeExtension on int {
@@ -20,14 +20,22 @@ int main(List<String> args) {
 
   List json = jsonDecode(content);
   List<Exercise> exercises = Exercise.fromList(json);
+  Training training = Training.genTraining(exercises);
 
-  1.to(3).forEach((element) {
-    1.to(3).forEach((element) {
-      Exercise exercise = exercises[Random().nextInt(exercises.length)];
-      print(exercise.toString());
-    });
-    print("\n");
+  training.first.forEach((exercise) {
+    print(exercise.toString());
   });
+  print("\n");
+
+  training.second.forEach((exercise) {
+    print(exercise.toString());
+  });
+  print("\n");
+
+  training.third.forEach((exercise) {
+    print(exercise.toString());
+  });
+  print("\n");
 
   return 0;
 }
