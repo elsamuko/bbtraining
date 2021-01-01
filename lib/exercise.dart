@@ -1,3 +1,15 @@
+import 'dart:math';
+
+typedef ExerciseCallback = bool Function(Exercise exercise);
+
+class Requirement {
+  String name;
+  ExerciseCallback callback;
+  Requirement(this.name, this.callback);
+  String toString() => name;
+  bool call(Exercise ex) => callback(ex);
+}
+
 class Exercise {
   String name;
   int upper;
@@ -12,6 +24,18 @@ class Exercise {
   bool bank;
   bool bar;
   bool outdoor;
+
+  bool isUpper() => upper >= 5;
+
+  bool isLower() => lower >= 5;
+
+  bool isCore() => core >= 5;
+
+  bool isStrength() => strength >= 5;
+
+  bool isCardio() => cardio >= 5;
+
+  bool isMobility() => mobility >= 5;
 
   Exercise(
       {this.name,
@@ -28,8 +52,11 @@ class Exercise {
       this.bar,
       this.outdoor});
 
-  String toString() {
-    return name;
+  String toString() => name;
+
+  static Exercise randomWithRequirements(List<Exercise> exercises, List<Requirement> requirements) {
+    List<Exercise> filtered = exercises.where((exercise) => requirements.every((filter) => filter(exercise))).toList();
+    return filtered[Random().nextInt(filtered.length)];
   }
 
   static List<Exercise> fromList(List list) {
