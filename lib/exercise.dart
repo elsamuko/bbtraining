@@ -37,6 +37,16 @@ class Exercise {
 
   bool isMobility() => mobility >= 5;
 
+  bool isIndoor() => !outdoor;
+
+  bool isToolless() => !bank && !bar && !weights;
+
+  @override
+  bool operator ==(dynamic other) => this.name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
+
   Exercise(
       {this.name,
       this.upper,
