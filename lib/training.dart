@@ -13,6 +13,38 @@ class Training {
     return first.any((b) => a == b) || second.any((b) => a == b) || third.any((b) => a == b);
   }
 
+  static Training fromStringList(List<Exercise> exercises, List<String> list) {
+    Training training = Training();
+
+    training.first[0] = exercises.firstWhere((element) => element.name == list[0]);
+    training.first[1] = exercises.firstWhere((element) => element.name == list[1]);
+    training.first[2] = exercises.firstWhere((element) => element.name == list[2]);
+
+    training.second[0] = exercises.firstWhere((element) => element.name == list[3]);
+    training.second[1] = exercises.firstWhere((element) => element.name == list[4]);
+    training.second[2] = exercises.firstWhere((element) => element.name == list[5]);
+
+    training.third[0] = exercises.firstWhere((element) => element.name == list[6]);
+    training.third[1] = exercises.firstWhere((element) => element.name == list[7]);
+    training.third[2] = exercises.firstWhere((element) => element.name == list[8]);
+
+    return training;
+  }
+
+  List<String> toStringList() {
+    return [
+      first[0].name,
+      first[1].name,
+      first[2].name,
+      second[0].name,
+      second[1].name,
+      second[2].name,
+      third[0].name,
+      third[1].name,
+      third[2].name,
+    ];
+  }
+
   static Training genTraining(List<Exercise> exercises) {
     Training training = Training();
 
