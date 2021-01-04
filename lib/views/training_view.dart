@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../training.dart';
 import '../exercise.dart';
 
@@ -21,8 +22,15 @@ class TrainingViewState extends State<TrainingView> {
       String string = utf8.decode(bytes.buffer.asUint8List());
       List json = jsonDecode(string);
       exercises = Exercise.fromList(json);
-      setState(() {});
+      SharedPreferences.getInstance().then((prefs) {
+        List<String> persisted = prefs.getStringList('exercises') ?? [];
+        if (persisted.isNotEmpty) {
+          training = Training.fromStringList(exercises, persisted);
+        }
+        setState(() {});
+      });
     });
+
     super.initState();
   }
 
@@ -63,6 +71,8 @@ class TrainingViewState extends State<TrainingView> {
           textColor: Colors.white,
           onPressed: () async {
             training = Training.genTraining(exercises);
+            var prefs = await SharedPreferences.getInstance();
+            prefs.setStringList("exercises", training.toStringList());
             setState(() {});
           },
           child: Text("Training"),
