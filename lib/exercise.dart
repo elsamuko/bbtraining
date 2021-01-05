@@ -24,6 +24,7 @@ class Exercise {
   bool bank;
   bool bar;
   bool outdoor;
+  List<String> stress; // list of stressed body parts
 
   bool isUpper() => upper >= 5;
 
@@ -60,7 +61,8 @@ class Exercise {
       this.weights,
       this.bank,
       this.bar,
-      this.outdoor});
+      this.outdoor,
+      this.stress});
 
   String toString() => name;
 
@@ -72,6 +74,13 @@ class Exercise {
   static List<Exercise> fromList(List list) {
     List<Exercise> exercises = [];
     list.forEach((data) {
+      // if it's 0, type is int -> dismiss
+      // if it's "shoulder knee", split
+      List<String> stress = [];
+      if (data['stress'].runtimeType == "".runtimeType) {
+        stress = data['stress'].split(" ");
+      }
+
       Exercise exercise = Exercise(
           name: data['exercise'] ?? "",
           upper: data['upper']?.toInt() ?? 0,
@@ -85,7 +94,8 @@ class Exercise {
           weights: (data['weights'] ?? 0) > 0,
           bank: (data['bank'] ?? 0) > 0,
           bar: (data['bar'] ?? 0) > 0,
-          outdoor: (data['outdoor'] ?? 0) > 0);
+          outdoor: (data['outdoor'] ?? 0) > 0,
+          stress: stress);
       exercises.add(exercise);
     });
     return exercises;
