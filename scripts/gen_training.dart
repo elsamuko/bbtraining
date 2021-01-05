@@ -22,20 +22,14 @@ int main(List<String> args) {
   List<Exercise> exercises = Exercise.fromList(json);
   Training training = Training.genTraining(exercises);
 
-  training.first.forEach((exercise) {
-    print(exercise.toString());
-  });
-  print("\n");
+  int i = 0;
 
-  training.second.forEach((exercise) {
+  training.exercises.forEach((exercise) {
     print(exercise.toString());
+    if (++i % 3 == 0) {
+      print("");
+    }
   });
-  print("\n");
-
-  training.third.forEach((exercise) {
-    print(exercise.toString());
-  });
-  print("\n");
 
   return 0;
 }

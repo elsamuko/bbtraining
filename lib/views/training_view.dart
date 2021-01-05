@@ -36,7 +36,7 @@ class TrainingViewState extends State<TrainingView> {
 
   @override
   Widget build(BuildContext context) {
-    var widgets = null;
+    var widgets;
 
     if (training != null) {
       widgets = Padding(
@@ -45,17 +45,17 @@ class TrainingViewState extends State<TrainingView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisSize: MainAxisSize.min,
           children: [
-            Text(training.first[0].toString()),
-            Text(training.first[1].toString()),
-            Text(training.first[2].toString()),
+            Text(training.exercises[0].toString()),
+            Text(training.exercises[1].toString()),
+            Text(training.exercises[2].toString()),
             SizedBox(height: 12),
-            Text(training.second[0].toString()),
-            Text(training.second[1].toString()),
-            Text(training.second[2].toString()),
+            Text(training.exercises[3].toString()),
+            Text(training.exercises[4].toString()),
+            Text(training.exercises[5].toString()),
             SizedBox(height: 12),
-            Text(training.third[0].toString()),
-            Text(training.third[1].toString()),
-            Text(training.third[2].toString()),
+            Text(training.exercises[6].toString()),
+            Text(training.exercises[7].toString()),
+            Text(training.exercises[8].toString()),
           ],
         ),
       );
