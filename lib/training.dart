@@ -25,6 +25,18 @@ class Training {
     return exercises.map((e) => e.name).toList();
   }
 
+  String toString() {
+    String s = "";
+    int i = 0;
+    exercises.forEach((exercise) {
+      s += exercise.toString() + "\n";
+      if (++i % 3 == 0) {
+        s += "\n";
+      }
+    });
+    return s;
+  }
+
   static Training genTraining(List<Exercise> exercises) {
     Training training = Training();
 
