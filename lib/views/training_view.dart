@@ -15,6 +15,7 @@ class TrainingView extends StatefulWidget {
 class TrainingViewState extends State<TrainingView> {
   Training training;
   List<Exercise> exercises;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -76,11 +77,23 @@ class TrainingViewState extends State<TrainingView> {
             setState(() {});
           },
           child: Text("Training"),
-        )
+        ),
+        FlatButton(
+            color: Colors.black87,
+            textColor: Colors.amberAccent,
+            onPressed: training == null
+                ? null
+                : () {
+                    Clipboard.setData(ClipboardData(text: training.toString()));
+                    final snackBar = SnackBar(content: Text("Copied training into clipboard"));
+                    scaffoldKey.currentState.showSnackBar(snackBar);
+                  },
+            child: Text("Clipboard")),
       ],
     );
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Burpeebären Training"),
       ),
