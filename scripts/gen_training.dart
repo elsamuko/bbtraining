@@ -21,15 +21,7 @@ int main(List<String> args) {
   List json = jsonDecode(content);
   List<Exercise> exercises = Exercise.fromList(json);
   Training training = Training.genTraining(exercises);
-
-  int i = 0;
-
-  training.exercises.forEach((exercise) {
-    print(exercise.toString());
-    if (++i % 3 == 0) {
-      print("");
-    }
-  });
+  print(training);
 
   return 0;
 }
