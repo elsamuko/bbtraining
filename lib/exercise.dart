@@ -17,7 +17,6 @@ class Exercise {
   int core;
   int strength;
   int cardio;
-  int endurance;
   int mobility;
   int difficulty;
   bool weights;
@@ -55,7 +54,6 @@ class Exercise {
       this.core,
       this.strength,
       this.cardio,
-      this.endurance,
       this.mobility,
       this.difficulty,
       this.weights,
@@ -88,7 +86,6 @@ class Exercise {
           core: data['core']?.toInt() ?? 0,
           strength: data['strength']?.toInt() ?? 0,
           cardio: data['cardio']?.toInt() ?? 0,
-          endurance: data['endurance']?.toInt() ?? 0,
           mobility: data['mobility']?.toInt() ?? 0,
           difficulty: data['difficulty']?.toInt() ?? 0,
           weights: (data['weights'] ?? 0) > 0,
@@ -109,7 +106,6 @@ class Exercise {
         core: data['core'] ?? 0,
         strength: data['strength'] ?? 0,
         cardio: data['cardio'] ?? 0,
-        endurance: data['endurance'] ?? 0,
         mobility: data['mobility'] ?? 0,
         difficulty: data['difficulty'] ?? 0,
         weights: data['weights'] ?? false,
