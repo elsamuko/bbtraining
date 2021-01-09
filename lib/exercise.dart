@@ -25,17 +25,17 @@ class Exercise {
   bool outdoor;
   List<String> stress; // list of stressed body parts
 
-  bool isUpper() => upper >= 5;
+  bool isUpper() => upper >= 3;
 
-  bool isLower() => lower >= 5;
+  bool isLower() => lower >= 3;
 
-  bool isCore() => core >= 5;
+  bool isCore() => core >= 3;
 
-  bool isStrength() => strength >= 5;
+  bool isStrength() => strength >= 3;
 
-  bool isCardio() => cardio >= 5;
+  bool isCardio() => cardio >= 3;
 
-  bool isMobility() => mobility >= 5;
+  bool isMobility() => mobility >= 3;
 
   bool isIndoor() => !outdoor;
 
