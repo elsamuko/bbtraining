@@ -12,6 +12,8 @@ class TrainingView extends StatefulWidget {
   TrainingViewState createState() => TrainingViewState();
 }
 
+enum ExercisePosition { Top, Center, Bottom }
+
 class TrainingViewState extends State<TrainingView> {
   Training training;
   List<Exercise> exercises;
@@ -35,6 +37,44 @@ class TrainingViewState extends State<TrainingView> {
     super.initState();
   }
 
+  SizedBox _exerciseButton(Exercise exercise, ExercisePosition position) {
+    BorderRadius radius;
+    switch (position) {
+      case ExercisePosition.Top:
+        radius = BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10));
+        break;
+      case ExercisePosition.Center:
+        radius = BorderRadius.zero;
+        break;
+      case ExercisePosition.Bottom:
+        radius = BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10));
+        break;
+    }
+
+    return SizedBox(
+        width: 280,
+        child: FlatButton(
+          visualDensity: VisualDensity.compact,
+          padding: EdgeInsets.symmetric(vertical: 18),
+          onPressed: () {},
+          shape: RoundedRectangleBorder(
+            borderRadius: radius,
+          ),
+          color: Theme.of(context).accentColor,
+          child: Text(exercise.toString()),
+        ));
+  }
+
+  Column _block(int pos) {
+    return Column(
+      children: [
+        _exerciseButton(training.exercises[pos], ExercisePosition.Top),
+        _exerciseButton(training.exercises[pos + 1], ExercisePosition.Center),
+        _exerciseButton(training.exercises[pos + 2], ExercisePosition.Bottom),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var widgets;
@@ -42,21 +82,13 @@ class TrainingViewState extends State<TrainingView> {
     if (training != null) {
       widgets = Padding(
         padding: const EdgeInsets.only(top: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisSize: MainAxisSize.min,
+        child: ListView(
           children: [
-            Text(training.exercises[0].toString()),
-            Text(training.exercises[1].toString()),
-            Text(training.exercises[2].toString()),
+            _block(0),
             SizedBox(height: 12),
-            Text(training.exercises[3].toString()),
-            Text(training.exercises[4].toString()),
-            Text(training.exercises[5].toString()),
+            _block(3),
             SizedBox(height: 12),
-            Text(training.exercises[6].toString()),
-            Text(training.exercises[7].toString()),
-            Text(training.exercises[8].toString()),
+            _block(6),
           ],
         ),
       );
@@ -68,8 +100,7 @@ class TrainingViewState extends State<TrainingView> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         FlatButton(
-          color: Colors.red,
-          textColor: Colors.white,
+          color: Theme.of(context).accentColor,
           onPressed: () async {
             training = Training.genTraining(exercises);
             var prefs = await SharedPreferences.getInstance();
@@ -79,8 +110,7 @@ class TrainingViewState extends State<TrainingView> {
           child: Text("Training"),
         ),
         FlatButton(
-            color: Colors.black87,
-            textColor: Colors.amberAccent,
+            color: Theme.of(context).buttonColor,
             onPressed: training == null
                 ? null
                 : () {

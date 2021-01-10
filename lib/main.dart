@@ -11,7 +11,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BB Training',
       theme: ThemeData(
-        primarySwatch: Colors.brown,
+        brightness: Brightness.dark,
+        primaryColor: Color(0xff00835c),
+        accentColor: Color(0xff94009c),
+        buttonColor: Color(0xff547390),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: TrainingView(),
