@@ -76,4 +76,38 @@ class Training {
 
     return training;
   }
+
+  // print all exercises, which fulfill current requirements
+  // run with latest exercises:
+  // scripts/gen_json.py res/exercises.ods > res/exercises.json
+  static void dumpFiltered(List<Exercise> exercises) {
+    Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
+    Requirement upper = Requirement("upper", (Exercise exercise) => exercise.isUpper());
+    Requirement core = Requirement("core", (Exercise exercise) => exercise.isCore());
+    Requirement cardio = Requirement("cardio", (Exercise exercise) => exercise.isCardio());
+    Requirement strength = Requirement("strength", (Exercise exercise) => exercise.isStrength());
+    Requirement mobility = Requirement("mobility", (Exercise exercise) => exercise.isMobility());
+
+    Requirement indoor = Requirement("indoor", (Exercise exercise) => exercise.isIndoor());
+    Requirement toolless = Requirement("toolless", (Exercise exercise) => exercise.isToolless());
+
+    List<Requirement> all = [indoor, toolless];
+
+    Function printer = (List<Requirement> requirements) {
+      print(requirements);
+      print(Exercise.allWithRequirements(exercises, requirements));
+    };
+
+    printer(all + [cardio, lower]);
+    printer(all + [cardio, upper]);
+    print("");
+
+    printer(all + [strength, lower]);
+    printer(all + [strength, upper]);
+    print("");
+
+    printer(all + [mobility, lower]);
+    printer(all + [mobility, upper]);
+    print("");
+  }
 }
