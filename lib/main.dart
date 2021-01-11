@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Color(0xff00835c),
-        accentColor: Color(0xff94009c),
+        accentColor: Color(0xff800060),
         buttonColor: Color(0xff547390),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
