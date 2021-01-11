@@ -39,7 +39,7 @@ class Exercise {
 
   bool isIndoor() => !outdoor;
 
-  bool isToolless() => !bank && !bar && !weights;
+  bool isToolless() => !bar && !weights;
 
   @override
   bool operator ==(dynamic other) => this.name == other.name;
