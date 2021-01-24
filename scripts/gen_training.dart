@@ -5,10 +5,6 @@ import 'dart:convert';
 import '../lib/training.dart';
 import '../lib/exercise.dart';
 
-extension RangeExtension on int {
-  List<int> to(int to) => [for (int i = this; i <= to; i++) i];
-}
-
 int main(List<String> args) {
   if (args.isEmpty) {
     print("gen_training.dart <exercises.json>");
