@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bbtraining/views/exercise_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,7 +57,7 @@ class TrainingViewState extends State<TrainingView> {
         child: FlatButton(
           visualDensity: VisualDensity.compact,
           padding: EdgeInsets.symmetric(vertical: 18),
-          onPressed: () {},
+          onPressed: () => showExercise(exercise),
           shape: RoundedRectangleBorder(
             borderRadius: radius,
           ),
@@ -73,6 +74,12 @@ class TrainingViewState extends State<TrainingView> {
         _exerciseButton(training.exercises[pos + 2], ExercisePosition.Bottom),
       ],
     );
+  }
+
+  void showExercise(Exercise exercise) {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) {
+      return ExerciseView(exercise);
+    }));
   }
 
   @override
