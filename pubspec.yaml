@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  font_awesome_flutter: # MIT https://github.com/fluttercommunity/font_awesome_flutter/blob/master/LICENSE.md
   flutter:
     sdk: flutter
   shared_preferences:
