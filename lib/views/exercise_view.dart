@@ -1,3 +1,4 @@
+import 'package:bbtraining/views/separated_rounded.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../exercise.dart';
@@ -18,7 +19,13 @@ class ExerciseView extends StatefulWidget {
 class ExerciseViewState extends State<ExerciseView> {
   Row stars(int count, IconData icon) {
     return Row(
-      children: count.each(Row(children: [SizedBox(width: 3), FaIcon(icon, size: 20, color: Colors.red)])),
+      children: count.each(Row(children: [
+        SizedBox(width: 3),
+        Container(
+          width: 20,
+          child: Center(child: FaIcon(icon, size: 18, color: Colors.white)),
+        ),
+      ])),
     );
   }
 
@@ -38,24 +45,19 @@ class ExerciseViewState extends State<ExerciseView> {
         title: Text(widget.exercise.name),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Center(
-          child: Column(
+          child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  children: [
-                    line("Upper", widget.exercise.upper, FontAwesomeIcons.arrowAltCircleUp),
-                    line("Lower", widget.exercise.lower, FontAwesomeIcons.arrowAltCircleDown),
-                    line("Core", widget.exercise.core, FontAwesomeIcons.dotCircle),
-                    line("Strength", widget.exercise.strength, FontAwesomeIcons.fistRaised),
-                    line("Cardio", widget.exercise.cardio, FontAwesomeIcons.heartbeat),
-                    line("Mobility", widget.exercise.mobility, FontAwesomeIcons.expandArrowsAlt),
-                    line("Difficulty", widget.exercise.difficulty, FontAwesomeIcons.star),
-                  ],
-                ),
-              ),
+              SeparatedRounded(children: [
+                line("Upper", widget.exercise.upper, FontAwesomeIcons.arrowAltCircleUp),
+                line("Lower", widget.exercise.lower, FontAwesomeIcons.arrowAltCircleDown),
+                line("Core", widget.exercise.core, FontAwesomeIcons.dotCircle),
+                line("Strength", widget.exercise.strength, FontAwesomeIcons.fistRaised),
+                line("Cardio", widget.exercise.cardio, FontAwesomeIcons.heartbeat),
+                line("Mobility", widget.exercise.mobility, FontAwesomeIcons.expandArrowsAlt),
+                line("Difficulty", widget.exercise.difficulty, FontAwesomeIcons.star),
+              ])
             ],
           ),
         ),
