@@ -7,7 +7,7 @@ class SeparatedRounded extends StatelessWidget {
 
   const SeparatedRounded({@required this.children, Key key}) : super(key: key);
 
-  SizedBox styledButton(BuildContext context, Widget child, Position position) {
+  Container styledButton(BuildContext context, Widget child, Position position) {
     BorderRadius radius;
     switch (position) {
       case Position.Top:
@@ -21,16 +21,14 @@ class SeparatedRounded extends StatelessWidget {
         break;
     }
 
-    return SizedBox(
-        width: 280,
-        child: FlatButton(
-          visualDensity: VisualDensity.compact,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          onPressed: () {},
-          shape: RoundedRectangleBorder(
+    return Container(
+        height: 40.0,
+        width: 280.0,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).accentColor,
             borderRadius: radius,
           ),
-          color: Theme.of(context).accentColor,
           child: Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: child),
         ));
   }
@@ -42,9 +40,11 @@ class SeparatedRounded extends StatelessWidget {
     children.forEach((widget) {
       if (widget == children.first) return;
       if (widget == children.last) return;
+      widgets.add(SizedBox(height: 5));
       widgets.add(styledButton(context, widget, Position.Center));
     });
 
+    widgets.add(SizedBox(height: 5));
     widgets.add(styledButton(context, children.last, Position.Bottom));
 
     return Column(
