@@ -33,7 +33,12 @@ class Training {
     String s = "";
     int i = 0;
     exercises.forEach((exercise) {
-      s += exercise.toString() + "\n";
+      if (exercise.pairwise) {
+        s += "2x";
+      } else {
+        s += "  ";
+      }
+      s += exercise.reps.toString() + " " + exercise.toString() + "\n";
       if (++i % 3 == 0) {
         s += "\n";
       }
