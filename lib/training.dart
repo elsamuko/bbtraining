@@ -15,7 +15,11 @@ class Training {
     Training training = Training();
 
     for (int i = 0; i < exercises.length; i++) {
-      training.exercises[i] = exercises.firstWhere((element) => element.name == list[i]);
+      Exercise exercise = exercises.firstWhere(
+        (element) => element.name == list[i],
+        orElse: () => Exercise(name: ""),
+      );
+      training.exercises[i] = exercise;
     }
 
     return training;
