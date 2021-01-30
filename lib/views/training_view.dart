@@ -62,7 +62,19 @@ class TrainingViewState extends State<TrainingView> {
             borderRadius: radius,
           ),
           color: Theme.of(context).accentColor,
-          child: Text(exercise.toString()),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(width: 20),
+              Center(
+                  child: Text(
+                "${exercise.name}",
+              )),
+              Expanded(child: SizedBox(width: 10)),
+              Container(width: 60, child: Center(child: Text("${exercise.pairwise ? "2 x " : ""}${exercise.reps}"))),
+              SizedBox(width: 10),
+            ],
+          ),
         ));
   }
 
