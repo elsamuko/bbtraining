@@ -1,0 +1,86 @@
+import 'package:bbtraining/settings.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class SettingsView extends StatefulWidget {
+  Settings settings;
+
+  SettingsView(this.settings, {Key key}) : super(key: key);
+
+  @override
+  SettingsViewState createState() => SettingsViewState();
+}
+
+class SettingsViewState extends State<SettingsView> {
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+        onWillPop: () async {
+          Navigator.pop(context, widget.settings);
+          return false;
+        },
+        child: Scaffold(
+            appBar: AppBar(
+              title: Text("Settings"),
+            ),
+            body: ListView(
+              children: [
+                SwitchListTile(
+                  secondary: FaIcon(FontAwesomeIcons.dumbbell),
+                  title: Text("Use weights"),
+                  value: widget.settings.useWeights,
+                  onChanged: (v) {
+                    setState(() {
+                      widget.settings.useWeights = v;
+                    });
+                  },
+                ),
+                SwitchListTile(
+                  secondary: FaIcon(FontAwesomeIcons.chair),
+                  title: Text("Use bank"),
+                  value: widget.settings.useBank,
+                  onChanged: (v) {
+                    setState(() {
+                      widget.settings.useBank = v;
+                    });
+                  },
+                ),
+                SwitchListTile(
+                  secondary: FaIcon(FontAwesomeIcons.waveSquare),
+                  title: Text("Use bar"),
+                  value: widget.settings.useBar,
+                  onChanged: (v) {
+                    setState(() {
+                      widget.settings.useBar = v;
+                    });
+                  },
+                ),
+                SwitchListTile(
+                  secondary: FaIcon(FontAwesomeIcons.cloudSun),
+                  title: Text("With Outdoor"),
+                  value: widget.settings.withOutdoor,
+                  onChanged: (v) {
+                    setState(() {
+                      widget.settings.withOutdoor = v;
+                    });
+                  },
+                ),
+                Divider(),
+                Slider(
+                  value: widget.settings.repetitions.index.toDouble(),
+                  min: 0,
+                  max: 2,
+                  divisions: 2,
+                  label: widget.settings.repetitions.name,
+                  onChanged: (double value) {
+                    setState(() {
+                      widget.settings.repetitions = Repetitions.values[value.toInt()];
+                    });
+                  },
+                ),
+                Center(child: Text("Repetitions")),
+                Divider(),
+              ],
+            )));
+  }
+}
