@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:bbtraining/settings.dart';
 import 'package:bbtraining/views/exercise_view.dart';
+import 'package:bbtraining/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +18,7 @@ class TrainingView extends StatefulWidget {
 enum ExercisePosition { Top, Center, Bottom }
 
 class TrainingViewState extends State<TrainingView> {
+  Settings settings = Settings();
   Training training;
   List<Exercise> exercises;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -53,7 +56,7 @@ class TrainingViewState extends State<TrainingView> {
     }
 
     return SizedBox(
-        width: 280,
+        width: 300,
         child: FlatButton(
           visualDensity: VisualDensity.compact,
           padding: EdgeInsets.symmetric(vertical: 18),
@@ -91,6 +94,12 @@ class TrainingViewState extends State<TrainingView> {
   void showExercise(Exercise exercise) {
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) {
       return ExerciseView(exercise);
+    }));
+  }
+
+  void showSettings() {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) {
+      return SettingsView(settings);
     }));
   }
 
@@ -145,6 +154,12 @@ class TrainingViewState extends State<TrainingView> {
       key: scaffoldKey,
       appBar: AppBar(
         title: Text("Burpeebären Training"),
+        actions: [
+          IconButton(
+            onPressed: () => showSettings(),
+            icon: Icon(IconData(128059)), // https://emojiguide.org/bear
+          )
+        ],
       ),
       body: Center(
         child: widgets,
