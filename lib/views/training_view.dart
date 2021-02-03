@@ -97,8 +97,8 @@ class TrainingViewState extends State<TrainingView> {
     }));
   }
 
-  void showSettings() {
-    Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) {
+  void showSettings() async {
+    settings = await Navigator.of(context).push(MaterialPageRoute<Settings>(builder: (BuildContext context) {
       return SettingsView(settings);
     }));
   }
