@@ -56,7 +56,7 @@ class Exercise {
       dreps *= 1.5;
     }
     if (level == Level.Easy) {
-      dreps *= 1.5;
+      dreps /= 2;
     }
 
     return dreps.toInt();
