@@ -1,27 +1,14 @@
-enum Repetitions { Easy, Normal, Hard }
-
-extension Name on Repetitions {
-  String get name {
-    switch (this) {
-      case Repetitions.Easy:
-        return "Easy";
-      case Repetitions.Hard:
-        return "Hard";
-      default:
-        return "Normal";
-    }
-  }
-}
+import 'level.dart';
 
 class Settings {
   bool useWeights = false;
   bool useBank = true;
   bool useBar = false;
   bool withOutdoor = false;
-  Repetitions repetitions = Repetitions.Normal;
+  Level level = Level.Normal;
 
-  bool hard() => repetitions == Repetitions.Hard;
-  bool easy() => repetitions == Repetitions.Easy;
+  bool hard() => level == Level.Hard;
+  bool easy() => level == Level.Easy;
 
   Map<String, dynamic> toMap() {
     return {
@@ -29,7 +16,7 @@ class Settings {
       'useBank': useBank,
       'useBar': useBar,
       'withOutdoor': withOutdoor,
-      'Repetitions': repetitions,
+      'level': level,
     };
   }
 }
