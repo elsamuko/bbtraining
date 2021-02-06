@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:bbtraining/settings.dart';
-import 'package:bbtraining/views/exercise_view.dart';
-import 'package:bbtraining/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'exercise_view.dart';
+import 'settings_view.dart';
+import '../settings.dart';
 import '../training.dart';
 import '../exercise.dart';
 
@@ -55,14 +55,6 @@ class TrainingViewState extends State<TrainingView> {
         break;
     }
 
-    double reps = exercise.reps.toDouble();
-    if (settings.hard()) {
-      reps *= 1.5;
-    }
-    if (settings.easy()) {
-      reps *= 1.5;
-    }
-
     return SizedBox(
         width: 300,
         child: FlatButton(
@@ -82,7 +74,10 @@ class TrainingViewState extends State<TrainingView> {
                 "${exercise.name}",
               )),
               Expanded(child: SizedBox(width: 10)),
-              Container(width: 60, child: Center(child: Text("${exercise.pairwise ? "2 x " : ""}${reps.toInt()}"))),
+              Container(
+                  width: 60,
+                  child:
+                      Center(child: Text("${exercise.pairwise ? "2 x " : ""}${exercise.repsByLevel(training.level)}"))),
               SizedBox(width: 10),
             ],
           ),
@@ -109,7 +104,9 @@ class TrainingViewState extends State<TrainingView> {
     settings = await Navigator.of(context).push(MaterialPageRoute<Settings>(builder: (BuildContext context) {
       return SettingsView(settings);
     }));
-    setState(() {});
+    setState(() {
+      training.level = settings.level;
+    });
   }
 
   @override

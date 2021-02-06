@@ -1,6 +1,7 @@
-import 'package:bbtraining/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../settings.dart';
+import '../level.dart';
 
 class SettingsView extends StatefulWidget {
   Settings settings;
@@ -67,18 +68,18 @@ class SettingsViewState extends State<SettingsView> {
                 ),
                 Divider(),
                 Slider(
-                  value: widget.settings.repetitions.index.toDouble(),
+                  value: widget.settings.level.index.toDouble(),
                   min: 0,
                   max: 2,
                   divisions: 2,
-                  label: widget.settings.repetitions.name,
+                  label: widget.settings.level.name,
                   onChanged: (double value) {
                     setState(() {
-                      widget.settings.repetitions = Repetitions.values[value.toInt()];
+                      widget.settings.level = Level.values[value.toInt()];
                     });
                   },
                 ),
-                Center(child: Text("Repetitions")),
+                Center(child: Text("Level")),
                 Divider(),
               ],
             )));

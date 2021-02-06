@@ -1,5 +1,5 @@
-import 'package:bbtraining/settings.dart';
-
+import 'level.dart';
+import 'settings.dart';
 import 'exercise.dart';
 
 extension RangeExtension on int {
@@ -8,6 +8,7 @@ extension RangeExtension on int {
 
 class Training {
   List<Exercise> exercises = List(9);
+  Level level = Level.Normal;
 
   bool contains(Exercise a) {
     return exercises.any((b) => a == b);
@@ -40,7 +41,7 @@ class Training {
       } else {
         s += "  ";
       }
-      s += exercise.reps.toString() + " " + exercise.toString() + "\n";
+      s += exercise.repsByLevel(level).toString() + " " + exercise.toString() + "\n";
       if (++i % 3 == 0) {
         s += "\n";
       }
@@ -50,6 +51,7 @@ class Training {
 
   static Training genTraining(List<Exercise> exercises, Settings settings) {
     Training training = Training();
+    training.level = settings.level;
 
     Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
     Requirement upper = Requirement("upper", (Exercise exercise) => exercise.isUpper());
