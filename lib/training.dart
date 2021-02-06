@@ -1,3 +1,5 @@
+import 'package:bbtraining/settings.dart';
+
 import 'exercise.dart';
 
 extension RangeExtension on int {
@@ -46,7 +48,7 @@ class Training {
     return s;
   }
 
-  static Training genTraining(List<Exercise> exercises) {
+  static Training genTraining(List<Exercise> exercises, Settings settings) {
     Training training = Training();
 
     Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
@@ -57,7 +59,9 @@ class Training {
     Requirement mobility = Requirement("mobility", (Exercise exercise) => exercise.isMobility());
 
     Requirement indoor = Requirement("indoor", (Exercise exercise) => exercise.isIndoor());
-    Requirement toolless = Requirement("toolless", (Exercise exercise) => exercise.isToolless());
+    Requirement noWeights = Requirement("noWeights", (Exercise exercise) => exercise.noWeights());
+    Requirement noBar = Requirement("noBar", (Exercise exercise) => exercise.noBar());
+    Requirement noBank = Requirement("noBank", (Exercise exercise) => exercise.noBank());
     Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !training.contains(a));
 
     // check, if previous exercise does not stress the same body part
@@ -66,7 +70,20 @@ class Training {
           (Exercise a) => !a.stress.any((part) => training.exercises[pos].stress.any((other) => part == other)));
     };
 
-    List<Requirement> all = [indoor, toolless, noDuplicates];
+    List<Requirement> all = [noDuplicates];
+
+    if (!settings.withOutdoor) {
+      all.add(indoor);
+    }
+    if (!settings.useWeights) {
+      all.add(noWeights);
+    }
+    if (!settings.useBar) {
+      all.add(noBar);
+    }
+    if (!settings.useBank) {
+      all.add(noBank);
+    }
 
     // warm up/cardio
     training.exercises[0] = Exercise.randomWithRequirements(exercises, all + [cardio, lower]);
@@ -98,7 +115,7 @@ class Training {
     Requirement mobility = Requirement("mobility", (Exercise exercise) => exercise.isMobility());
 
     Requirement indoor = Requirement("indoor", (Exercise exercise) => exercise.isIndoor());
-    Requirement toolless = Requirement("toolless", (Exercise exercise) => exercise.isToolless());
+    Requirement toolless = Requirement("toolless", (Exercise exercise) => exercise.noBar() && exercise.noWeights());
 
     List<Requirement> all = [indoor, toolless];
 

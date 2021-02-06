@@ -55,6 +55,14 @@ class TrainingViewState extends State<TrainingView> {
         break;
     }
 
+    double reps = exercise.reps.toDouble();
+    if (settings.hard()) {
+      reps *= 1.5;
+    }
+    if (settings.easy()) {
+      reps *= 1.5;
+    }
+
     return SizedBox(
         width: 300,
         child: FlatButton(
@@ -74,7 +82,7 @@ class TrainingViewState extends State<TrainingView> {
                 "${exercise.name}",
               )),
               Expanded(child: SizedBox(width: 10)),
-              Container(width: 60, child: Center(child: Text("${exercise.pairwise ? "2 x " : ""}${exercise.reps}"))),
+              Container(width: 60, child: Center(child: Text("${exercise.pairwise ? "2 x " : ""}${reps.toInt()}"))),
               SizedBox(width: 10),
             ],
           ),
@@ -101,6 +109,7 @@ class TrainingViewState extends State<TrainingView> {
     settings = await Navigator.of(context).push(MaterialPageRoute<Settings>(builder: (BuildContext context) {
       return SettingsView(settings);
     }));
+    setState(() {});
   }
 
   @override
@@ -130,7 +139,7 @@ class TrainingViewState extends State<TrainingView> {
         FlatButton(
           color: Theme.of(context).accentColor,
           onPressed: () async {
-            training = Training.genTraining(exercises);
+            training = Training.genTraining(exercises, settings);
             var prefs = await SharedPreferences.getInstance();
             prefs.setStringList("exercises", training.toStringList());
             setState(() {});

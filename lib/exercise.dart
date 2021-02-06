@@ -42,7 +42,11 @@ class Exercise {
 
   bool isIndoor() => !outdoor;
 
-  bool isToolless() => !bar && !weights;
+  bool noWeights() => !weights;
+
+  bool noBar() => !bar;
+
+  bool noBank() => !bank;
 
   @override
   bool operator ==(dynamic other) => this.name == other.name;
