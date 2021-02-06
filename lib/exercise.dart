@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'level.dart';
+
 typedef ExerciseCallback = bool Function(Exercise exercise);
 
 class Requirement {
@@ -47,6 +49,18 @@ class Exercise {
   bool noBar() => !bar;
 
   bool noBank() => !bank;
+
+  int repsByLevel(Level level) {
+    double dreps = reps.toDouble();
+    if (level == Level.Hard) {
+      dreps *= 1.5;
+    }
+    if (level == Level.Easy) {
+      dreps *= 1.5;
+    }
+
+    return dreps.toInt();
+  }
 
   @override
   bool operator ==(dynamic other) => this.name == other.name;
