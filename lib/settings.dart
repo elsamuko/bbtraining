@@ -20,6 +20,9 @@ class Settings {
   bool withOutdoor = false;
   Repetitions repetitions = Repetitions.Normal;
 
+  bool hard() => repetitions == Repetitions.Hard;
+  bool easy() => repetitions == Repetitions.Easy;
+
   Map<String, dynamic> toMap() {
     return {
       'useWeights': useWeights,
