@@ -14,12 +14,12 @@ class Training {
     return exercises.any((b) => a == b);
   }
 
-  static Training fromStringList(List<Exercise> exercises, List<String> list) {
+  static Training fromStringList(List<Exercise> exercises, List<String> names) {
     Training training = Training();
 
-    for (int i = 0; i < exercises.length; i++) {
+    for (int i = 0; i < names.length; i++) {
       Exercise exercise = exercises.firstWhere(
-        (element) => element.name == list[i],
+        (element) => element.name == names[i],
         orElse: () => Exercise(name: ""),
       );
       training.exercises[i] = exercise;
