@@ -56,7 +56,7 @@ class TrainingViewState extends State<TrainingView> {
     }
 
     return SizedBox(
-        width: 300,
+        width: 320,
         child: FlatButton(
           visualDensity: VisualDensity.compact,
           padding: EdgeInsets.symmetric(vertical: 18),
