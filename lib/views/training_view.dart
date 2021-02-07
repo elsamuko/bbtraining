@@ -163,7 +163,7 @@ class TrainingViewState extends State<TrainingView> {
         actions: [
           IconButton(
             onPressed: () => showSettings(),
-            icon: Icon(IconData(128059)), // https://emojiguide.org/bear
+            icon: Icon(const IconData(128059)), // https://emojiguide.org/bear
           )
         ],
       ),
