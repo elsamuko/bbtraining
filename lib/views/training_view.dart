@@ -28,6 +28,7 @@ class TrainingViewState extends State<TrainingView> {
       exercises = value;
       training = await Persistence.getTraining(exercises);
       settings = await Persistence.getSettings();
+      training.level = settings.level;
       setState(() {});
     });
     super.initState();
