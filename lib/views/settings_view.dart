@@ -23,6 +23,16 @@ class SettingsViewState extends State<SettingsView> {
         child: Scaffold(
             appBar: AppBar(
               title: Text("Settings"),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.undo),
+                  onPressed: () {
+                    setState(() {
+                      widget.settings = Settings();
+                    });
+                  },
+                )
+              ],
             ),
             body: ListView(
               children: [
