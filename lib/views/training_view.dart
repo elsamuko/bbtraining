@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'exercise_view.dart';
 import 'settings_view.dart';
 import '../settings.dart';
 import '../training.dart';
 import '../exercise.dart';
+import '../persistence.dart';
 
 class TrainingView extends StatefulWidget {
   TrainingView({Key key}) : super(key: key);
@@ -18,26 +17,19 @@ class TrainingView extends StatefulWidget {
 enum ExercisePosition { Top, Center, Bottom }
 
 class TrainingViewState extends State<TrainingView> {
-  Settings settings = Settings();
+  Settings settings;
   Training training;
   List<Exercise> exercises;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
-    rootBundle.load("res/exercises.json").then((bytes) {
-      String string = utf8.decode(bytes.buffer.asUint8List());
-      List json = jsonDecode(string);
-      exercises = Exercise.fromList(json);
-      SharedPreferences.getInstance().then((prefs) {
-        List<String> persisted = prefs.getStringList('exercises') ?? [];
-        if (persisted.isNotEmpty) {
-          training = Training.fromStringList(exercises, persisted);
-        }
-        setState(() {});
-      });
+    Persistence.getExercises().then((value) async {
+      exercises = value;
+      training = await Persistence.getTraining(exercises);
+      settings = await Persistence.getSettings();
+      setState(() {});
     });
-
     super.initState();
   }
 
@@ -106,6 +98,7 @@ class TrainingViewState extends State<TrainingView> {
     }));
     setState(() {
       training.level = settings.level;
+      Persistence.setSettings(settings);
     });
   }
 
@@ -137,9 +130,9 @@ class TrainingViewState extends State<TrainingView> {
           color: Theme.of(context).accentColor,
           onPressed: () async {
             training = Training.genTraining(exercises, settings);
-            var prefs = await SharedPreferences.getInstance();
-            prefs.setStringList("exercises", training.toStringList());
-            setState(() {});
+            setState(() {
+              Persistence.setTraining(training);
+            });
           },
           child: Text("Training"),
         ),
