@@ -36,7 +36,7 @@ class TrainingViewState extends State<TrainingView> {
     super.initState();
   }
 
-  SizedBox _exerciseButton(Exercise exercise, ExercisePosition position) {
+  SizedBox _exerciseButton(int pos, Exercise exercise, ExercisePosition position) {
     BorderRadius radius;
     switch (position) {
       case ExercisePosition.Top:
@@ -53,6 +53,7 @@ class TrainingViewState extends State<TrainingView> {
     return SizedBox(
         width: 320,
         child: FlatButton(
+          key: Key("exercise_$pos"),
           visualDensity: VisualDensity.compact,
           padding: EdgeInsets.symmetric(vertical: 18),
           onPressed: () => showExercise(exercise),
@@ -82,9 +83,9 @@ class TrainingViewState extends State<TrainingView> {
   Column _block(int pos) {
     return Column(
       children: [
-        _exerciseButton(training.exercises[pos], ExercisePosition.Top),
-        _exerciseButton(training.exercises[pos + 1], ExercisePosition.Center),
-        _exerciseButton(training.exercises[pos + 2], ExercisePosition.Bottom),
+        _exerciseButton(pos, training.exercises[pos], ExercisePosition.Top),
+        _exerciseButton(pos + 1, training.exercises[pos + 1], ExercisePosition.Center),
+        _exerciseButton(pos + 2, training.exercises[pos + 2], ExercisePosition.Bottom),
       ],
     );
   }
@@ -130,6 +131,7 @@ class TrainingViewState extends State<TrainingView> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         FlatButton(
+          key: Key("gen_training"),
           color: Theme.of(context).accentColor,
           onPressed: () async {
             training = Training.genTraining(exercises, settings);
@@ -158,6 +160,7 @@ class TrainingViewState extends State<TrainingView> {
         title: Text("Burpeebären Training"),
         actions: [
           IconButton(
+            key: Key("show_settings"),
             onPressed: () => showSettings(),
             icon: Icon(const IconData(128059)), // https://emojiguide.org/bear
           )
