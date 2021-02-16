@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'exercise_view.dart';
 import 'settings_view.dart';
+import 'exercises_view.dart';
 import '../settings.dart';
 import '../training.dart';
 import '../exercise.dart';
@@ -96,6 +97,38 @@ class TrainingViewState extends State<TrainingView> {
     }));
   }
 
+  void showExercises() async {
+    exercises = await Navigator.of(context).push(MaterialPageRoute<List<Exercise>>(builder: (BuildContext context) {
+      return ExercisesView(exercises);
+    }));
+  }
+
+  PopupMenuButton<BBOpts> buildPopUpButton() {
+    return PopupMenuButton<BBOpts>(
+      key: Key("optionsMenu"),
+      icon: Icon(const IconData(128059)), // https://emojiguide.org/bear
+      onSelected: (BBOpts result) {
+        switch (result) {
+          case BBOpts.Settings:
+            showSettings();
+            break;
+          case BBOpts.Exercises:
+            showExercises();
+            break;
+          case BBOpts.About:
+            break;
+        }
+      },
+      // map enum to menu
+      itemBuilder: (BuildContext context) => BBOpts.values
+          .map((element) => PopupMenuItem<BBOpts>(
+                value: element,
+                child: Text(element.name),
+              ))
+          .toList(),
+    );
+  }
+
   void showSettings() async {
     settings = await Navigator.of(context).push(MaterialPageRoute<Settings>(builder: (BuildContext context) {
       return SettingsView(settings);
@@ -159,11 +192,7 @@ class TrainingViewState extends State<TrainingView> {
       appBar: AppBar(
         title: Text("Burpeebären Training"),
         actions: [
-          IconButton(
-            key: Key("show_settings"),
-            onPressed: () => showSettings(),
-            icon: Icon(const IconData(128059)), // https://emojiguide.org/bear
-          )
+          buildPopUpButton(),
         ],
       ),
       body: Center(
@@ -171,5 +200,22 @@ class TrainingViewState extends State<TrainingView> {
       ),
       bottomNavigationBar: bottomButtons,
     );
+  }
+}
+
+enum BBOpts { Settings, Exercises, About }
+
+extension Name on BBOpts {
+  String get name {
+    switch (this) {
+      case BBOpts.Settings:
+        return "Settings";
+      case BBOpts.Exercises:
+        return "Exercises";
+      case BBOpts.About:
+        return "About";
+      default:
+        return "About";
+    }
   }
 }
