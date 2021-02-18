@@ -2,10 +2,7 @@ import 'package:bbtraining/views/separated_rounded.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../exercise.dart';
-
-extension RangeExtension on int {
-  List<Widget> each(Widget w) => [for (int i = 0; i < this; i++) w];
-}
+import 'exercise_view.dart';
 
 class ExercisesView extends StatefulWidget {
   List<Exercise> exercises;
@@ -38,6 +35,12 @@ class ExercisesViewState extends State<ExercisesView> {
     );
   }
 
+  void showExercise(Exercise exercise) {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) {
+      return ExerciseView(exercise);
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -55,7 +58,20 @@ class ExercisesViewState extends State<ExercisesView> {
                   child: ListView.builder(
                       itemCount: widget.exercises.length,
                       itemBuilder: (context, i) {
-                        return Text(widget.exercises[i].toString());
+                        return ListTile(
+                          title: GestureDetector(
+                            child: Text(widget.exercises[i].name),
+                            onTap: () => showExercise(widget.exercises[i]),
+                          ),
+                          trailing: Switch(
+                            value: widget.exercises[i].enabled,
+                            onChanged: (v) {
+                              setState(() {
+                                widget.exercises[i].enabled = v;
+                              });
+                            },
+                          ),
+                        );
                       }))),
         ));
   }
