@@ -12,7 +12,28 @@ class Persistence {
     ByteData bytes = await rootBundle.load("res/exercises.json");
     String string = utf8.decode(bytes.buffer.asUint8List());
     List json = jsonDecode(string);
-    return Exercise.fromList(json);
+
+    List<Exercise> exercises = Exercise.fromList(json);
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> persisted = prefs.getStringList('disabled_exercises') ?? [];
+
+    persisted.forEach((name) {
+      exercises.forEach((exercise) {
+        if (exercise.name == name) {
+          exercise.enabled = false;
+        }
+      });
+    });
+
+    return exercises;
+  }
+
+  static Future<void> setExercises(List<Exercise> exercises) async {
+    List<String> filtered = exercises.where((exercise) => !exercise.enabled).map((e) => e.name).toList();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList("disabled_exercises", filtered);
   }
 
   //! loads previous training from prefs
