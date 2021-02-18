@@ -14,6 +14,7 @@ class Requirement {
 
 class Exercise {
   String name;
+  bool enabled = true;
   int upper;
   int lower;
   int core;
