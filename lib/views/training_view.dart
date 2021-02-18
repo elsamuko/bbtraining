@@ -101,6 +101,19 @@ class TrainingViewState extends State<TrainingView> {
     exercises = await Navigator.of(context).push(MaterialPageRoute<List<Exercise>>(builder: (BuildContext context) {
       return ExercisesView(exercises);
     }));
+    setState(() {
+      Persistence.setExercises(exercises);
+    });
+  }
+
+  void showSettings() async {
+    settings = await Navigator.of(context).push(MaterialPageRoute<Settings>(builder: (BuildContext context) {
+      return SettingsView(settings);
+    }));
+    setState(() {
+      training.level = settings.level;
+      Persistence.setSettings(settings);
+    });
   }
 
   PopupMenuButton<BBOpts> buildPopUpButton() {
@@ -127,16 +140,6 @@ class TrainingViewState extends State<TrainingView> {
               ))
           .toList(),
     );
-  }
-
-  void showSettings() async {
-    settings = await Navigator.of(context).push(MaterialPageRoute<Settings>(builder: (BuildContext context) {
-      return SettingsView(settings);
-    }));
-    setState(() {
-      training.level = settings.level;
-      Persistence.setSettings(settings);
-    });
   }
 
   @override
