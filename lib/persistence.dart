@@ -41,7 +41,7 @@ class Persistence {
     if (exercises == null) return null;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> persisted = prefs.getStringList('exercises') ?? [];
+    List<String> persisted = prefs.getStringList('training') ?? [];
 
     if (persisted.isNotEmpty) {
       return Training.fromStringList(exercises, persisted);
@@ -52,7 +52,7 @@ class Persistence {
 
   static Future<void> setTraining(Training training) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList("exercises", training.toStringList());
+    prefs.setStringList("training", training.toStringList());
   }
 
   static Future<Settings> getSettings() async {
