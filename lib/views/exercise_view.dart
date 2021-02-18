@@ -42,7 +42,20 @@ class ExerciseViewState extends State<ExerciseView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.exercise.name),
+        title: Text(
+          widget.exercise.name,
+          style: TextStyle(fontSize: 16, color: widget.exercise.enabled ? Colors.white : Colors.black26),
+        ),
+        actions: [
+          Switch(
+            value: widget.exercise.enabled,
+            onChanged: (v) {
+              setState(() {
+                widget.exercise.enabled = v;
+              });
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
