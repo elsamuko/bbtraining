@@ -66,13 +66,15 @@ class Training {
     Requirement noBank = Requirement("noBank", (Exercise exercise) => exercise.noBank());
     Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !training.contains(a));
 
+    Requirement onlyEnabled = Requirement("onlyEnabled", (Exercise a) => a.enabled);
+
     // check, if previous exercise does not stress the same body part
     Function noDoubleStress = (int pos) {
       return Requirement("noDoubleStress",
           (Exercise a) => !a.stress.any((part) => training.exercises[pos].stress.any((other) => part == other)));
     };
 
-    List<Requirement> all = [noDuplicates];
+    List<Requirement> all = [onlyEnabled, noDuplicates];
 
     if (!settings.withOutdoor) {
       all.add(indoor);
