@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info/package_info.dart';
 import 'exercise_view.dart';
 import 'settings_view.dart';
 import 'exercises_view.dart';
@@ -116,6 +117,18 @@ class TrainingViewState extends State<TrainingView> {
     });
   }
 
+  void showAbout() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Burpeebären Training v${packageInfo.version}"),
+            content: Text("Training for the Burpeebären"),
+          );
+        });
+  }
+
   PopupMenuButton<BBOpts> buildPopUpButton() {
     return PopupMenuButton<BBOpts>(
       key: Key("optionsMenu"),
@@ -129,6 +142,7 @@ class TrainingViewState extends State<TrainingView> {
             showExercises();
             break;
           case BBOpts.About:
+            showAbout();
             break;
         }
       },
