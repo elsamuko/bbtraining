@@ -1,4 +1,5 @@
 import 'level.dart';
+import 'requirement.dart';
 import 'settings.dart';
 import 'exercise.dart';
 
@@ -90,19 +91,19 @@ class Training {
     }
 
     // warm up/cardio
-    training.exercises[0] = Exercise.randomWithRequirements(exercises, all + [cardio, lower]);
-    training.exercises[1] = Exercise.randomWithRequirements(exercises, all + [cardio, core, noDoubleStress(0)]);
-    training.exercises[2] = Exercise.randomWithRequirements(exercises, all + [cardio, lower, noDoubleStress(1)]);
+    training.exercises[0] = Requirement.randomWithRequirements(exercises, all + [cardio, lower]);
+    training.exercises[1] = Requirement.randomWithRequirements(exercises, all + [cardio, core, noDoubleStress(0)]);
+    training.exercises[2] = Requirement.randomWithRequirements(exercises, all + [cardio, lower, noDoubleStress(1)]);
 
     // strength
-    training.exercises[3] = Exercise.randomWithRequirements(exercises, all + [strength, lower, noDoubleStress(2)]);
-    training.exercises[4] = Exercise.randomWithRequirements(exercises, all + [strength, upper, noDoubleStress(3)]);
-    training.exercises[5] = Exercise.randomWithRequirements(exercises, all + [strength, lower, noDoubleStress(4)]);
+    training.exercises[3] = Requirement.randomWithRequirements(exercises, all + [strength, lower, noDoubleStress(2)]);
+    training.exercises[4] = Requirement.randomWithRequirements(exercises, all + [strength, upper, noDoubleStress(3)]);
+    training.exercises[5] = Requirement.randomWithRequirements(exercises, all + [strength, lower, noDoubleStress(4)]);
 
     // mobility
-    training.exercises[6] = Exercise.randomWithRequirements(exercises, all + [mobility, lower, noDoubleStress(5)]);
-    training.exercises[7] = Exercise.randomWithRequirements(exercises, all + [mobility, core, noDoubleStress(6)]);
-    training.exercises[8] = Exercise.randomWithRequirements(exercises, all + [mobility, lower, noDoubleStress(7)]);
+    training.exercises[6] = Requirement.randomWithRequirements(exercises, all + [mobility, lower, noDoubleStress(5)]);
+    training.exercises[7] = Requirement.randomWithRequirements(exercises, all + [mobility, core, noDoubleStress(6)]);
+    training.exercises[8] = Requirement.randomWithRequirements(exercises, all + [mobility, lower, noDoubleStress(7)]);
 
     return training;
   }
@@ -125,7 +126,7 @@ class Training {
 
     Function printer = (List<Requirement> requirements) {
       print(requirements);
-      print(Exercise.allWithRequirements(exercises, requirements));
+      print(Requirement.allWithRequirements(exercises, requirements));
     };
 
     printer(all + [cardio, lower]);
