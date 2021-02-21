@@ -22,9 +22,10 @@ environment:
 
 dependencies:
   font_awesome_flutter: # MIT https://github.com/fluttercommunity/font_awesome_flutter/blob/master/LICENSE.md
+  package_info: '>=0.4.1 <2.0.0' # BSD https://github.com/flutter/plugins/blob/master/packages/package_info/LICENSE
+  shared_preferences: # BSD https://github.com/flutter/plugins/blob/master/packages/shared_preferences/shared_preferences/LICENSE
   flutter:
     sdk: flutter
-  shared_preferences:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
