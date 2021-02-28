@@ -13,6 +13,7 @@ class Exercise {
   bool weights;
   bool bank;
   bool bar;
+  bool floor;
   bool outdoor;
   List<String> stress; // list of stressed body parts
   bool pairwise;
@@ -36,6 +37,8 @@ class Exercise {
   bool noWeights() => !weights;
 
   bool noBar() => !bar;
+
+  bool noFloor() => !floor;
 
   bool noBank() => !bank;
 
@@ -69,6 +72,7 @@ class Exercise {
       this.weights,
       this.bank,
       this.bar,
+      this.floor,
       this.outdoor,
       this.stress,
       this.pairwise,
@@ -106,6 +110,7 @@ class Exercise {
         weights: (data['weights'] ?? 0) > 0,
         bank: (data['bank'] ?? 0) > 0,
         bar: (data['bar'] ?? 0) > 0,
+        floor: (data['floor'] ?? 0) > 0,
         outdoor: (data['outdoor'] ?? 0) > 0,
         stress: stress,
         pairwise: (data['pairwise'] ?? 0) > 0,
