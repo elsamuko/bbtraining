@@ -7,6 +7,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('IO', () {
     Settings settings = Settings();
+    settings.useFloor = false;
+    settings.useBar = true;
 
     // parse toMap back to cluster
     Map<String, dynamic> m = settings.toMap();
