@@ -67,6 +67,16 @@ class SettingsViewState extends State<SettingsView> {
                   },
                 ),
                 SwitchListTile(
+                  secondary: FaIcon(FontAwesomeIcons.download),
+                  title: Text("Use floor"),
+                  value: widget.settings.useFloor,
+                  onChanged: (v) {
+                    setState(() {
+                      widget.settings.useFloor = v;
+                    });
+                  },
+                ),
+                SwitchListTile(
                   secondary: FaIcon(FontAwesomeIcons.cloudSun),
                   title: Text("With Outdoor"),
                   value: widget.settings.withOutdoor,
