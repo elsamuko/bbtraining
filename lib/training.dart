@@ -64,6 +64,7 @@ class Training {
     Requirement indoor = Requirement("indoor", (Exercise exercise) => exercise.isIndoor());
     Requirement noWeights = Requirement("noWeights", (Exercise exercise) => exercise.noWeights());
     Requirement noBar = Requirement("noBar", (Exercise exercise) => exercise.noBar());
+    Requirement noFloor = Requirement("noFloor", (Exercise exercise) => exercise.noFloor());
     Requirement noBank = Requirement("noBank", (Exercise exercise) => exercise.noBank());
     Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !training.contains(a));
 
@@ -88,6 +89,9 @@ class Training {
     }
     if (!settings.useBank) {
       all.add(noBank);
+    }
+    if (!settings.useFloor) {
+      all.add(noFloor);
     }
 
     // warm up/cardio
