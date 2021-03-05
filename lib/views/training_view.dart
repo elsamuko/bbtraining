@@ -131,7 +131,7 @@ class TrainingViewState extends State<TrainingView> {
 
   PopupMenuButton<BBOpts> buildPopUpButton() {
     return PopupMenuButton<BBOpts>(
-      key: Key("optionsMenu"),
+      key: Key("options_menu"),
       icon: Icon(const IconData(128059)), // https://emojiguide.org/bear
       onSelected: (BBOpts result) {
         switch (result) {
@@ -150,6 +150,7 @@ class TrainingViewState extends State<TrainingView> {
       itemBuilder: (BuildContext context) => BBOpts.values
           .map((element) => PopupMenuItem<BBOpts>(
                 value: element,
+                key: Key(element.name),
                 child: Text(element.name),
               ))
           .toList(),
