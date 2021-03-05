@@ -40,7 +40,8 @@ void main() {
 
     test('screenshot settings view', () async {
       // go to settings
-      await driver.tap(find.byValueKey("show_settings"));
+      await driver.tap(find.byValueKey("options_menu"));
+      await driver.tap(find.byValueKey("Settings"));
 
       // screenshot
       await takeScreenshot(driver, 'settings');
