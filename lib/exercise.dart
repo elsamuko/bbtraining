@@ -19,6 +19,7 @@ class Exercise {
   bool pairwise;
   int reps;
   String unit;
+  int images; // available images for this exercise in res/images
 
   bool isUpper() => upper >= 3;
 
@@ -77,7 +78,8 @@ class Exercise {
       this.stress,
       this.pairwise,
       this.reps,
-      this.unit});
+      this.unit,
+      this.images});
 
   String toString() => name;
 
@@ -116,6 +118,7 @@ class Exercise {
         pairwise: (data['pairwise'] ?? 0) > 0,
         reps: data['reps']?.toInt() ?? 0,
         unit: unit,
+        images: data['images']?.toInt() ?? 0,
       );
 
       exercises.add(exercise);
