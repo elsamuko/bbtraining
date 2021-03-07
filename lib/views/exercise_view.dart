@@ -1,6 +1,7 @@
 import 'package:bbtraining/views/separated_rounded.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import '../exercise.dart';
 
 extension RangeExtension on int {
@@ -40,6 +41,21 @@ class ExerciseViewState extends State<ExerciseView> {
 
   @override
   Widget build(BuildContext context) {
+    CarouselSlider images = null;
+
+    if (widget.exercise.images > 0) {
+      images = CarouselSlider(
+        options: CarouselOptions(height: 220.0),
+        items: [
+          for (int i = 0; i < widget.exercise.images; i++)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset('res/images/${widget.exercise.name}_${i}.jpg'),
+            )
+        ],
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.exercise.name, style: TextStyle(fontSize: 16)),
@@ -49,6 +65,8 @@ class ExerciseViewState extends State<ExerciseView> {
         child: Center(
           child: ListView(
             children: [
+              (images != null) ? images : Divider(),
+              SizedBox(height: 8),
               SeparatedRounded(children: [
                 line("Upper", widget.exercise.upper, FontAwesomeIcons.arrowAltCircleUp),
                 line("Lower", widget.exercise.lower, FontAwesomeIcons.arrowAltCircleDown),
