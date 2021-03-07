@@ -41,7 +41,8 @@ class ExerciseViewState extends State<ExerciseView> {
 
   @override
   Widget build(BuildContext context) {
-    CarouselSlider images = null;
+    Widget images = Divider();
+    Widget description = Divider();
 
     if (widget.exercise.images > 0) {
       images = CarouselSlider(
@@ -56,6 +57,33 @@ class ExerciseViewState extends State<ExerciseView> {
       );
     }
 
+    if (widget.exercise.instructions.isNotEmpty) {
+      description = Card(
+          elevation: 6,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: widget.exercise.instructions
+                  .map((e) => Row(children: [
+                        Icon(Icons.arrow_right),
+                        Flexible(child: Text(e)),
+                      ]))
+                  .toList(),
+            ),
+          ));
+    }
+
+    Widget stats = SeparatedRounded(children: [
+      line("Upper", widget.exercise.upper, FontAwesomeIcons.arrowAltCircleUp),
+      line("Lower", widget.exercise.lower, FontAwesomeIcons.arrowAltCircleDown),
+      line("Core", widget.exercise.core, FontAwesomeIcons.dotCircle),
+      line("Strength", widget.exercise.strength, FontAwesomeIcons.fistRaised),
+      line("Cardio", widget.exercise.cardio, FontAwesomeIcons.heartbeat),
+      line("Mobility", widget.exercise.mobility, FontAwesomeIcons.expandArrowsAlt),
+      line("Difficulty", widget.exercise.difficulty, FontAwesomeIcons.star),
+    ]);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.exercise.name, style: TextStyle(fontSize: 16)),
@@ -65,17 +93,10 @@ class ExerciseViewState extends State<ExerciseView> {
         child: Center(
           child: ListView(
             children: [
-              (images != null) ? images : Divider(),
+              images,
+              description,
               SizedBox(height: 8),
-              SeparatedRounded(children: [
-                line("Upper", widget.exercise.upper, FontAwesomeIcons.arrowAltCircleUp),
-                line("Lower", widget.exercise.lower, FontAwesomeIcons.arrowAltCircleDown),
-                line("Core", widget.exercise.core, FontAwesomeIcons.dotCircle),
-                line("Strength", widget.exercise.strength, FontAwesomeIcons.fistRaised),
-                line("Cardio", widget.exercise.cardio, FontAwesomeIcons.heartbeat),
-                line("Mobility", widget.exercise.mobility, FontAwesomeIcons.expandArrowsAlt),
-                line("Difficulty", widget.exercise.difficulty, FontAwesomeIcons.star),
-              ])
+              stats,
             ],
           ),
         ),
