@@ -4,8 +4,13 @@ enum Position { Top, Center, Bottom }
 
 class SeparatedRounded extends StatelessWidget {
   final List<Widget> children;
+  final double height;
 
-  const SeparatedRounded({@required this.children, Key key}) : super(key: key);
+  SeparatedRounded({
+    @required this.children,
+    this.height: 40.0,
+    Key key,
+  }) : super(key: key);
 
   Container styledButton(BuildContext context, Widget child, Position position) {
     BorderRadius radius;
@@ -22,7 +27,7 @@ class SeparatedRounded extends StatelessWidget {
     }
 
     return Container(
-        height: 40.0,
+        height: height,
         width: 280.0,
         child: Container(
           decoration: BoxDecoration(
