@@ -19,6 +19,7 @@ class Exercise {
   bool pairwise;
   int reps;
   String unit;
+  List<String> instructions;
   int images; // available images for this exercise in res/images
 
   bool isUpper() => upper >= 3;
@@ -79,6 +80,7 @@ class Exercise {
       this.pairwise,
       this.reps,
       this.unit,
+      this.instructions,
       this.images});
 
   String toString() => name;
@@ -91,6 +93,13 @@ class Exercise {
       List<String> stress = [];
       if (data['stress'].runtimeType == "".runtimeType) {
         stress = data['stress'].split(" ");
+      }
+
+      // if it's 0, type is int -> dismiss
+      // if it's "do this; do that", split
+      List<String> instructions = [];
+      if (data['instructions'].runtimeType == "".runtimeType) {
+        instructions = data['instructions'].split("; ");
       }
 
       // if it's 0, type is int -> dismiss
@@ -118,6 +127,7 @@ class Exercise {
         pairwise: (data['pairwise'] ?? 0) > 0,
         reps: data['reps']?.toInt() ?? 0,
         unit: unit,
+        instructions: instructions,
         images: data['images']?.toInt() ?? 0,
       );
 
