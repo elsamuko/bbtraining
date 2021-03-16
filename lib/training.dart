@@ -126,11 +126,13 @@ class Training {
     Requirement indoor = Requirement("indoor", (Exercise exercise) => exercise.isIndoor());
     Requirement toolless = Requirement("toolless", (Exercise exercise) => exercise.noBar() && exercise.noWeights());
 
-    List<Requirement> all = [indoor, toolless];
+    List<Requirement> all = [];
 
     Function printer = (List<Requirement> requirements) {
       print(requirements);
-      print(Requirement.allWithRequirements(exercises, requirements));
+      Requirement.allWithRequirements(exercises, requirements).forEach((element) {
+        print("    $element");
+      });
     };
 
     printer(all + [cardio, lower]);
