@@ -46,35 +46,51 @@ class ExerciseViewState extends State<ExerciseView> {
 
     if (widget.exercise.images > 0) {
       images = CarouselSlider(
-        options: CarouselOptions(height: 220.0),
+        options: CarouselOptions(height: 280.0),
         items: [
           for (int i = 0; i < widget.exercise.images; i++)
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset('res/images/${widget.exercise.name}_${i}.jpg'),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Image.asset('res/images/${widget.exercise.name}_${i}.jpg')),
             )
         ],
       );
     }
 
     if (widget.exercise.instructions.isNotEmpty) {
-      description = Card(
-          elevation: 6,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widget.exercise.instructions
-                  .map((e) => Row(children: [
-                        Icon(Icons.arrow_right),
-                        Flexible(child: Text(e)),
-                      ]))
-                  .toList(),
-            ),
-          ));
+      description = Center(
+        child: Container(
+          width: 290.0,
+          child: Card(
+              color: Theme.of(context).accentColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: widget.exercise.instructions
+                      .map((e) => IntrinsicHeight(
+                              child: Row(
+                            children: [
+                              Column(
+                                children: [Icon(Icons.play_arrow, size: 16)],
+                              ),
+                              SizedBox(width: 3),
+                              Flexible(child: Text(e)),
+                            ],
+                          )))
+                      .toList(),
+                ),
+              )),
+        ),
+      );
     }
 
-    Widget stats = SeparatedRounded(children: [
+    Widget stats = SeparatedRounded(height: 33, children: [
       line("Upper", widget.exercise.upper, FontAwesomeIcons.arrowAltCircleUp),
       line("Lower", widget.exercise.lower, FontAwesomeIcons.arrowAltCircleDown),
       line("Core", widget.exercise.core, FontAwesomeIcons.dotCircle),
@@ -94,8 +110,9 @@ class ExerciseViewState extends State<ExerciseView> {
           child: ListView(
             children: [
               images,
-              description,
               SizedBox(height: 8),
+              description,
+              SizedBox(height: 16),
               stats,
             ],
           ),
