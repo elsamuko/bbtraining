@@ -53,7 +53,7 @@ class ExerciseViewState extends State<ExerciseView> {
               padding: const EdgeInsets.all(8.0),
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
-                  child: Image.asset('res/images/${widget.exercise.name}_${i}.jpg')),
+                  child: Image.asset('res/images/${widget.exercise.name}_$i.jpg')),
             )
         ],
       );

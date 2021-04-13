@@ -8,7 +8,7 @@ extension RangeExtension on int {
 }
 
 class Training {
-  List<Exercise> exercises = List(9);
+  List<Exercise> exercises = List.filled(9, Exercise());
   Level level = Level.Normal;
 
   bool contains(Exercise a) {

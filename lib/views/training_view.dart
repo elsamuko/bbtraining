@@ -22,7 +22,6 @@ class TrainingViewState extends State<TrainingView> {
   Settings settings;
   Training training;
   List<Exercise> exercises;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -54,15 +53,17 @@ class TrainingViewState extends State<TrainingView> {
 
     return SizedBox(
         width: 320,
-        child: FlatButton(
+        child: TextButton(
           key: Key("exercise_$pos"),
-          visualDensity: VisualDensity.compact,
-          padding: EdgeInsets.symmetric(vertical: 18),
-          onPressed: () => showExercise(exercise),
-          shape: RoundedRectangleBorder(
-            borderRadius: radius,
+          style: TextButton.styleFrom(
+            visualDensity: VisualDensity.compact,
+            padding: EdgeInsets.symmetric(vertical: 18),
+            shape: RoundedRectangleBorder(
+              borderRadius: radius,
+            ),
+            backgroundColor: Theme.of(context).accentColor,
           ),
-          color: Theme.of(context).accentColor,
+          onPressed: () => showExercise(exercise),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -181,9 +182,11 @@ class TrainingViewState extends State<TrainingView> {
     Row bottomButtons = Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        FlatButton(
+        TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Theme.of(context).accentColor,
+          ),
           key: Key("gen_training"),
-          color: Theme.of(context).accentColor,
           onPressed: () async {
             training = Training.genTraining(exercises, settings);
             setState(() {
@@ -192,21 +195,20 @@ class TrainingViewState extends State<TrainingView> {
           },
           child: Text("Training"),
         ),
-        FlatButton(
-            color: Theme.of(context).buttonColor,
+        TextButton(
+            style: TextButton.styleFrom(backgroundColor: Theme.of(context).buttonColor),
             onPressed: training == null
                 ? null
                 : () {
                     Clipboard.setData(ClipboardData(text: training.toString()));
                     final snackBar = SnackBar(content: Text("Copied training into clipboard"));
-                    scaffoldKey.currentState.showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
             child: Text("Clipboard")),
       ],
     );
 
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Burpeebären Training"),
         actions: [

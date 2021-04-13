@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xff800060),
         buttonColor: Color(0xff547390),
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme: ColorScheme.dark(primary: Colors.white),
       ),
       home: TrainingView(),
       debugShowCheckedModeBanner: false,

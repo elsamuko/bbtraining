@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:bbtraining/level.dart';
 import 'package:bbtraining/settings.dart';
 import 'package:flutter_test/flutter_test.dart';
 
