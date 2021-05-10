@@ -1,13 +1,13 @@
-import 'level.dart';
-import 'requirement.dart';
-import 'settings.dart';
-import 'exercise.dart';
+import '../level.dart';
+import '../requirement.dart';
+import '../settings.dart';
+import '../exercise.dart';
 
 extension RangeExtension on int {
   List<int> to(int to) => [for (int i = this; i <= to; i++) i];
 }
 
-class Training {
+class FunctionalTraining {
   List<Exercise> exercises = List.filled(9, Exercise());
   Level level = Level.Normal;
 
@@ -15,8 +15,8 @@ class Training {
     return exercises.any((b) => a == b);
   }
 
-  static Training fromStringList(List<Exercise> exercises, List<String> names) {
-    Training training = Training();
+  static FunctionalTraining fromStringList(List<Exercise> exercises, List<String> names) {
+    FunctionalTraining training = FunctionalTraining();
 
     for (int i = 0; i < names.length; i++) {
       Exercise exercise = exercises.firstWhere(
@@ -50,8 +50,8 @@ class Training {
     return s;
   }
 
-  static Training genTraining(List<Exercise> exercises, Settings settings) {
-    Training training = Training();
+  static FunctionalTraining genTraining(List<Exercise> exercises, Settings settings) {
+    FunctionalTraining training = FunctionalTraining();
     training.level = settings.level;
 
     Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
