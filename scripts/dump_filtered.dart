@@ -2,7 +2,7 @@
 
 import 'dart:io';
 import 'dart:convert';
-import '../lib/training.dart';
+import '../lib/trainings/functional.dart';
 import '../lib/exercise.dart';
 
 extension RangeExtension on int {
@@ -20,7 +20,7 @@ int main(List<String> args) {
 
   List json = jsonDecode(content);
   List<Exercise> exercises = Exercise.fromList(json);
-  Training.dumpFiltered(exercises);
+  FunctionalTraining.dumpFiltered(exercises);
 
   return 0;
 }

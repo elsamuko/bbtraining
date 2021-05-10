@@ -3,7 +3,7 @@
 import 'dart:io';
 import 'dart:convert';
 import '../lib/settings.dart';
-import '../lib/training.dart';
+import '../lib/trainings/functional.dart';
 import '../lib/exercise.dart';
 
 int main(List<String> args) {
@@ -18,7 +18,7 @@ int main(List<String> args) {
   List json = jsonDecode(content);
   List<Exercise> exercises = Exercise.fromList(json);
   Settings settings = Settings();
-  Training training = Training.genTraining(exercises, settings);
+  FunctionalTraining training = FunctionalTraining.genTraining(exercises, settings);
   print(training);
 
   return 0;
