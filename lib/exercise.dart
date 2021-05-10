@@ -34,6 +34,8 @@ class Exercise {
 
   bool isMobility() => mobility >= 3;
 
+  bool isMobilityExtra() => mobility >= 4;
+
   bool isIndoor() => !outdoor;
 
   bool noWeights() => !weights;
@@ -77,8 +79,8 @@ class Exercise {
       this.floor,
       this.outdoor,
       this.stress,
-      this.pairwise,
-      this.reps,
+      this.pairwise = false,
+      this.reps = 10,
       this.unit,
       this.instructions,
       this.images});
