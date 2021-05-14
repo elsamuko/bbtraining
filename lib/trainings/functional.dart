@@ -56,7 +56,6 @@ class FunctionalTraining {
 
     Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
     Requirement upper = Requirement("upper", (Exercise exercise) => exercise.isUpper());
-    Requirement core = Requirement("core", (Exercise exercise) => exercise.isCore());
     Requirement cardio = Requirement("cardio", (Exercise exercise) => exercise.isCardio());
     Requirement strength = Requirement("strength", (Exercise exercise) => exercise.isStrength());
     Requirement mobility = Requirement("mobility", (Exercise exercise) => exercise.isMobility());
@@ -96,7 +95,7 @@ class FunctionalTraining {
 
     // warm up/cardio
     training.exercises[0] = Requirement.randomWithRequirements(exercises, all + [cardio, lower]);
-    training.exercises[1] = Requirement.randomWithRequirements(exercises, all + [cardio, core, noDoubleStress(0)]);
+    training.exercises[1] = Requirement.randomWithRequirements(exercises, all + [cardio, upper, noDoubleStress(0)]);
     training.exercises[2] = Requirement.randomWithRequirements(exercises, all + [cardio, lower, noDoubleStress(1)]);
 
     // strength
@@ -106,7 +105,7 @@ class FunctionalTraining {
 
     // mobility
     training.exercises[6] = Requirement.randomWithRequirements(exercises, all + [mobility, lower, noDoubleStress(5)]);
-    training.exercises[7] = Requirement.randomWithRequirements(exercises, all + [mobility, core, noDoubleStress(6)]);
+    training.exercises[7] = Requirement.randomWithRequirements(exercises, all + [mobility, upper, noDoubleStress(6)]);
     training.exercises[8] = Requirement.randomWithRequirements(exercises, all + [mobility, lower, noDoubleStress(7)]);
 
     return training;
