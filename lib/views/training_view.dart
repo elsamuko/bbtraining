@@ -1,11 +1,13 @@
+import 'package:bbtraining/trainings/mobility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'exercise_view.dart';
 import 'settings_view.dart';
 import 'exercises_view.dart';
 import '../settings.dart';
-import '../training.dart';
+import '../trainings/functional.dart';
 import '../exercise.dart';
 import '../persistence.dart';
 
@@ -20,17 +22,23 @@ enum ExercisePosition { Top, Center, Bottom }
 
 class TrainingViewState extends State<TrainingView> {
   Settings settings;
-  Training training;
+  FunctionalTraining training;
+  MobilityTraining mobility;
   List<Exercise> exercises;
+  CarouselController carouselController = CarouselController();
 
   @override
   void initState() {
     Persistence.getExercises().then((value) async {
       exercises = value;
       training = await Persistence.getTraining(exercises);
+      mobility = await Persistence.getMobilityTraining(exercises);
       settings = await Persistence.getSettings();
       if (training != null) {
         training.level = settings.level;
+      }
+      if (mobility != null) {
+        mobility.level = settings.level;
       }
       setState(() {});
     });
@@ -93,6 +101,18 @@ class TrainingViewState extends State<TrainingView> {
     );
   }
 
+  Column _mobility(int pos) {
+    return Column(
+      children: [
+        _exerciseButton(pos, mobility.exercises[pos], ExercisePosition.Top),
+        _exerciseButton(pos + 1, mobility.exercises[pos + 1], ExercisePosition.Center),
+        _exerciseButton(pos + 2, mobility.exercises[pos + 2], ExercisePosition.Center),
+        _exerciseButton(pos + 3, mobility.exercises[pos + 3], ExercisePosition.Center),
+        _exerciseButton(pos + 4, mobility.exercises[pos + 4], ExercisePosition.Bottom),
+      ],
+    );
+  }
+
   void showExercise(Exercise exercise) {
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (BuildContext context) {
       return ExerciseView(exercise);
@@ -114,6 +134,7 @@ class TrainingViewState extends State<TrainingView> {
     }));
     setState(() {
       training.level = settings.level;
+      mobility.level = settings.level;
       Persistence.setSettings(settings);
     });
   }
@@ -163,17 +184,40 @@ class TrainingViewState extends State<TrainingView> {
     var widgets;
 
     if (training != null) {
-      widgets = Padding(
-        padding: const EdgeInsets.only(top: 16.0),
-        child: ListView(
-          children: [
-            _block(0),
-            SizedBox(height: 12),
-            _block(3),
-            SizedBox(height: 12),
-            _block(6),
-          ],
+      widgets = CarouselSlider(
+        carouselController: carouselController,
+        options: CarouselOptions(
+          viewportFraction: 1,
+          // enlargeCenterPage: true,
+          height: 600.0,
+          scrollDirection: Axis.vertical,
         ),
+        items: [
+          ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(child: Text("Functional Training")),
+              ),
+              _block(0),
+              SizedBox(height: 12),
+              _block(3),
+              SizedBox(height: 12),
+              _block(6),
+            ],
+          ),
+          ListView(
+            physics: ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(child: Text("Mobility Training")),
+              ),
+              _mobility(0),
+            ],
+          ),
+        ],
       );
     } else {
       widgets = Text("Hello");
@@ -182,15 +226,21 @@ class TrainingViewState extends State<TrainingView> {
     Row bottomButtons = Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.keyboard_arrow_left),
+          onPressed: () => carouselController.previousPage(),
+        ),
         TextButton(
           style: TextButton.styleFrom(
             backgroundColor: Theme.of(context).accentColor,
           ),
           key: Key("gen_training"),
           onPressed: () async {
-            training = Training.genTraining(exercises, settings);
+            training = FunctionalTraining.genTraining(exercises, settings);
+            mobility = MobilityTraining.genTraining(exercises, settings);
             setState(() {
               Persistence.setTraining(training);
+              Persistence.setMobilityTraining(mobility);
             });
           },
           child: Text("Training"),
@@ -205,6 +255,10 @@ class TrainingViewState extends State<TrainingView> {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
             child: Text("Clipboard")),
+        IconButton(
+          icon: Icon(Icons.keyboard_arrow_right),
+          onPressed: () => carouselController.nextPage(),
+        ),
       ],
     );
 
