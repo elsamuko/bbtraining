@@ -22,6 +22,7 @@ enum ExercisePosition { Top, Center, Bottom }
 
 class TrainingViewState extends State<TrainingView> {
   Settings settings;
+  var currentTraining;
   FunctionalTraining training;
   MobilityTraining mobility;
   List<Exercise> exercises;
@@ -187,6 +188,16 @@ class TrainingViewState extends State<TrainingView> {
       widgets = CarouselSlider(
         carouselController: carouselController,
         options: CarouselOptions(
+          onPageChanged: (int index, CarouselPageChangedReason reason) {
+            switch (index % 3) {
+              case 0:
+                currentTraining = training;
+                break;
+              case 1:
+                currentTraining = mobility;
+                break;
+            }
+          },
           viewportFraction: 1,
           // enlargeCenterPage: true,
           height: 600.0,
@@ -250,7 +261,7 @@ class TrainingViewState extends State<TrainingView> {
             onPressed: training == null
                 ? null
                 : () {
-                    Clipboard.setData(ClipboardData(text: training.toString()));
+                    Clipboard.setData(ClipboardData(text: currentTraining.toString()));
                     final snackBar = SnackBar(content: Text("Copied training into clipboard"));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
