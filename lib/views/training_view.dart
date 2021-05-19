@@ -36,6 +36,7 @@ class TrainingViewState extends State<TrainingView> {
       mobility = await Persistence.getMobilityTraining(exercises);
       settings = await Persistence.getSettings();
       if (training != null) {
+        currentTraining = training;
         training.level = settings.level;
       }
       if (mobility != null) {
