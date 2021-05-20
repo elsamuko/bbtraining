@@ -36,6 +36,8 @@ class Exercise {
 
   bool isMobilityExtra() => mobility >= 4;
 
+  bool isCoreExtra() => core >= 4;
+
   bool isIndoor() => !outdoor;
 
   bool noWeights() => !weights;
