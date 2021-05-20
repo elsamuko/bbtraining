@@ -2,52 +2,15 @@ import '../level.dart';
 import '../requirement.dart';
 import '../settings.dart';
 import '../exercise.dart';
+import 'training.dart';
 
-extension RangeExtension on int {
-  List<int> to(int to) => [for (int i = this; i <= to; i++) i];
-}
+class FunctionalTraining extends Training {
+  FunctionalTraining() : super(9);
 
-class FunctionalTraining {
-  List<Exercise> exercises = List.filled(9, Exercise());
-  Level level = Level.Normal;
-
-  bool contains(Exercise a) {
-    return exercises.any((b) => a == b);
-  }
-
-  static FunctionalTraining fromStringList(List<Exercise> exercises, List<String> names) {
+  static FunctionalTraining from(List<Exercise> exercises, List<String> names) {
     FunctionalTraining training = FunctionalTraining();
-
-    for (int i = 0; i < names.length; i++) {
-      Exercise exercise = exercises.firstWhere(
-        (element) => element.name == names[i],
-        orElse: () => Exercise(name: ""),
-      );
-      training.exercises[i] = exercise;
-    }
-
+    training.fromStringList(exercises, names);
     return training;
-  }
-
-  List<String> toStringList() {
-    return exercises.map((e) => e.name).toList();
-  }
-
-  String toString() {
-    String s = "";
-    int i = 0;
-    exercises.forEach((exercise) {
-      if (exercise.pairwise) {
-        s += "2x";
-      } else {
-        s += "  ";
-      }
-      s += exercise.repsByLevel(level).toString() + " " + exercise.toString() + "\n";
-      if (++i % 3 == 0) {
-        s += "\n";
-      }
-    });
-    return s;
   }
 
   static FunctionalTraining genTraining(List<Exercise> exercises, Settings settings) {
@@ -117,13 +80,9 @@ class FunctionalTraining {
   static void dumpFiltered(List<Exercise> exercises) {
     Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
     Requirement upper = Requirement("upper", (Exercise exercise) => exercise.isUpper());
-    Requirement core = Requirement("core", (Exercise exercise) => exercise.isCore());
     Requirement cardio = Requirement("cardio", (Exercise exercise) => exercise.isCardio());
     Requirement strength = Requirement("strength", (Exercise exercise) => exercise.isStrength());
     Requirement mobility = Requirement("mobility", (Exercise exercise) => exercise.isMobility());
-
-    Requirement indoor = Requirement("indoor", (Exercise exercise) => exercise.isIndoor());
-    Requirement toolless = Requirement("toolless", (Exercise exercise) => exercise.noBar() && exercise.noWeights());
 
     List<Requirement> all = [];
 

@@ -2,49 +2,15 @@ import '../level.dart';
 import '../requirement.dart';
 import '../settings.dart';
 import '../exercise.dart';
+import 'training.dart';
 
-extension RangeExtension on int {
-  List<int> to(int to) => [for (int i = this; i <= to; i++) i];
-}
+class MobilityTraining extends Training {
+  MobilityTraining() : super(5);
 
-class MobilityTraining {
-  List<Exercise> exercises = List.filled(5, Exercise());
-
-  Level level = Level.Normal;
-
-  bool contains(Exercise a) {
-    return exercises.any((b) => a == b);
-  }
-
-  static MobilityTraining fromStringList(List<Exercise> exercises, List<String> names) {
+  static MobilityTraining from(List<Exercise> exercises, List<String> names) {
     MobilityTraining training = MobilityTraining();
-
-    for (int i = 0; i < names.length; i++) {
-      Exercise exercise = exercises.firstWhere(
-        (element) => element.name == names[i],
-        orElse: () => Exercise(name: ""),
-      );
-      training.exercises[i] = exercise;
-    }
-
+    training.fromStringList(exercises, names);
     return training;
-  }
-
-  List<String> toStringList() {
-    return exercises.map((e) => e.name).toList();
-  }
-
-  String toString() {
-    String s = "";
-    exercises.forEach((exercise) {
-      if (exercise.pairwise) {
-        s += "2x";
-      } else {
-        s += "  ";
-      }
-      s += exercise.repsByLevel(level).toString() + " " + exercise.toString() + "\n";
-    });
-    return s;
   }
 
   static MobilityTraining genTraining(List<Exercise> exercises, Settings settings) {
@@ -61,12 +27,6 @@ class MobilityTraining {
     Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !training.contains(a));
 
     Requirement onlyEnabled = Requirement("onlyEnabled", (Exercise a) => a.enabled);
-
-    // check, if previous exercise does not stress the same body part
-    Function noDoubleStress = (int pos) {
-      return Requirement("noDoubleStress",
-          (Exercise a) => !a.stress.any((part) => training.exercises[pos].stress.any((other) => part == other)));
-    };
 
     List<Requirement> all = [onlyEnabled, noDuplicates, mobilityExtra, indoor, noWeights, noBar];
 
