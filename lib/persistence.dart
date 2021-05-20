@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bbtraining/trainings/core.dart';
 import 'package:bbtraining/trainings/mobility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
@@ -65,6 +66,19 @@ class Persistence {
     }
   }
 
+  static Future<CoreTraining> getCoreTraining(List<Exercise> exercises) async {
+    if (exercises == null) return null;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> persisted = prefs.getStringList('core_training') ?? [];
+
+    if (persisted.isNotEmpty) {
+      return CoreTraining.from(exercises, persisted);
+    } else {
+      return null;
+    }
+  }
+
   static Future<void> setTraining(FunctionalTraining training) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList("functional_training", training.toStringList());
@@ -73,6 +87,11 @@ class Persistence {
   static Future<void> setMobilityTraining(MobilityTraining training) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList("mobility_training", training.toStringList());
+  }
+
+  static Future<void> setCoreTraining(CoreTraining training) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList("core_training", training.toStringList());
   }
 
   static Future<Settings> getSettings() async {
