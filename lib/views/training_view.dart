@@ -23,7 +23,7 @@ enum ExercisePosition { Top, Center, Bottom }
 class TrainingViewState extends State<TrainingView> {
   Settings settings;
   var currentTraining;
-  FunctionalTraining training;
+  FunctionalTraining functional;
   MobilityTraining mobility;
   List<Exercise> exercises;
   CarouselController carouselController = CarouselController();
@@ -32,12 +32,12 @@ class TrainingViewState extends State<TrainingView> {
   void initState() {
     Persistence.getExercises().then((value) async {
       exercises = value;
-      training = await Persistence.getTraining(exercises);
+      functional = await Persistence.getTraining(exercises);
       mobility = await Persistence.getMobilityTraining(exercises);
       settings = await Persistence.getSettings();
-      if (training != null) {
-        currentTraining = training;
-        training.level = settings.level;
+      if (functional != null) {
+        currentTraining = functional;
+        functional.level = settings.level;
       }
       if (mobility != null) {
         mobility.level = settings.level;
@@ -85,8 +85,8 @@ class TrainingViewState extends State<TrainingView> {
               Expanded(child: SizedBox(width: 10)),
               Container(
                   width: 60,
-                  child:
-                      Center(child: Text("${exercise.pairwise ? "2 x " : ""}${exercise.repsByLevel(training.level)}"))),
+                  child: Center(
+                      child: Text("${exercise.pairwise ? "2 x " : ""}${exercise.repsByLevel(functional.level)}"))),
               SizedBox(width: 10),
             ],
           ),
@@ -96,9 +96,9 @@ class TrainingViewState extends State<TrainingView> {
   Column _block(int pos) {
     return Column(
       children: [
-        _exerciseButton(pos, training.exercises[pos], ExercisePosition.Top),
-        _exerciseButton(pos + 1, training.exercises[pos + 1], ExercisePosition.Center),
-        _exerciseButton(pos + 2, training.exercises[pos + 2], ExercisePosition.Bottom),
+        _exerciseButton(pos, functional.exercises[pos], ExercisePosition.Top),
+        _exerciseButton(pos + 1, functional.exercises[pos + 1], ExercisePosition.Center),
+        _exerciseButton(pos + 2, functional.exercises[pos + 2], ExercisePosition.Bottom),
       ],
     );
   }
@@ -135,7 +135,7 @@ class TrainingViewState extends State<TrainingView> {
       return SettingsView(settings);
     }));
     setState(() {
-      training.level = settings.level;
+      functional.level = settings.level;
       mobility.level = settings.level;
       Persistence.setSettings(settings);
     });
@@ -185,14 +185,14 @@ class TrainingViewState extends State<TrainingView> {
   Widget build(BuildContext context) {
     var widgets;
 
-    if (training != null) {
+    if (functional != null) {
       widgets = CarouselSlider(
         carouselController: carouselController,
         options: CarouselOptions(
           onPageChanged: (int index, CarouselPageChangedReason reason) {
             switch (index % 3) {
               case 0:
-                currentTraining = training;
+                currentTraining = functional;
                 break;
               case 1:
                 currentTraining = mobility;
@@ -248,10 +248,10 @@ class TrainingViewState extends State<TrainingView> {
           ),
           key: Key("gen_training"),
           onPressed: () async {
-            training = FunctionalTraining.genTraining(exercises, settings);
+            functional = FunctionalTraining.genTraining(exercises, settings);
             mobility = MobilityTraining.genTraining(exercises, settings);
             setState(() {
-              Persistence.setTraining(training);
+              Persistence.setTraining(functional);
               Persistence.setMobilityTraining(mobility);
             });
           },
@@ -259,7 +259,7 @@ class TrainingViewState extends State<TrainingView> {
         ),
         TextButton(
             style: TextButton.styleFrom(backgroundColor: Theme.of(context).buttonColor),
-            onPressed: training == null
+            onPressed: functional == null
                 ? null
                 : () {
                     Clipboard.setData(ClipboardData(text: currentTraining.toString()));
