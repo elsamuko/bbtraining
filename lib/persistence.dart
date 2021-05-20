@@ -45,7 +45,7 @@ class Persistence {
     List<String> persisted = prefs.getStringList('functional_training') ?? [];
 
     if (persisted.isNotEmpty) {
-      return FunctionalTraining.fromStringList(exercises, persisted);
+      return FunctionalTraining.from(exercises, persisted);
     } else {
       return null;
     }
@@ -59,7 +59,7 @@ class Persistence {
     List<String> persisted = prefs.getStringList('mobility_training') ?? [];
 
     if (persisted.isNotEmpty) {
-      return MobilityTraining.fromStringList(exercises, persisted);
+      return MobilityTraining.from(exercises, persisted);
     } else {
       return null;
     }
