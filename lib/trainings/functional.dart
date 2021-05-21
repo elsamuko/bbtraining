@@ -7,6 +7,8 @@ import 'training.dart';
 class FunctionalTraining extends Training {
   FunctionalTraining() : super(9);
 
+  String get name => "functional_training";
+
   static FunctionalTraining from(List<Exercise> exercises, List<String> names) {
     FunctionalTraining training = FunctionalTraining();
     training.fromStringList(exercises, names);

@@ -6,6 +6,8 @@ import 'training.dart';
 class CoreTraining extends Training {
   CoreTraining() : super(3);
 
+  String get name => "core_training";
+
   static CoreTraining from(List<Exercise> exercises, List<String> names) {
     CoreTraining training = CoreTraining();
     training.fromStringList(exercises, names);

@@ -7,6 +7,8 @@ import 'training.dart';
 class MobilityTraining extends Training {
   MobilityTraining() : super(5);
 
+  String get name => "mobility_training";
+
   static MobilityTraining from(List<Exercise> exercises, List<String> names) {
     MobilityTraining training = MobilityTraining();
     training.fromStringList(exercises, names);

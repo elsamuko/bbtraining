@@ -11,6 +11,8 @@ abstract class Training {
     exercises = List.filled(count, Exercise());
   }
 
+  String get name;
+
   bool contains(Exercise a) {
     return exercises.any((b) => a == b);
   }
