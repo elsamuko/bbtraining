@@ -47,7 +47,7 @@ class CoreTraining extends Training {
   // run with latest exercises:
   // scripts/gen_json.py res/exercises.ods > res/exercises.json
   static void dumpFiltered(List<Exercise> exercises) {
-    Requirement coreExtra = Requirement("mobilityExtra", (Exercise exercise) => exercise.isCoreExtra());
+    Requirement coreExtra = Requirement("coreExtra", (Exercise exercise) => exercise.isCoreExtra());
 
     List<Requirement> all = [];
 
@@ -59,5 +59,6 @@ class CoreTraining extends Training {
     };
 
     printer(all + [coreExtra]);
+    print("");
   }
 }

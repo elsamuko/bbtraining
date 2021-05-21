@@ -60,5 +60,6 @@ class MobilityTraining extends Training {
     };
 
     printer(all + [mobilityExtra]);
+    print("");
   }
 }
