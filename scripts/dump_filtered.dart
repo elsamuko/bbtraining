@@ -2,6 +2,8 @@
 
 import 'dart:io';
 import 'dart:convert';
+import '../lib/trainings/core.dart';
+import '../lib/trainings/mobility.dart';
 import '../lib/trainings/functional.dart';
 import '../lib/exercise.dart';
 
@@ -21,6 +23,8 @@ int main(List<String> args) {
   List json = jsonDecode(content);
   List<Exercise> exercises = Exercise.fromList(json);
   FunctionalTraining.dumpFiltered(exercises);
+  MobilityTraining.dumpFiltered(exercises);
+  CoreTraining.dumpFiltered(exercises);
 
   return 0;
 }
