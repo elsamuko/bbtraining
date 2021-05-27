@@ -110,7 +110,7 @@ class Exercise {
       // if it's "rounds", type is string
       String unit = "";
       if (data['unit'].runtimeType == "".runtimeType) {
-        unit = data['unit'];
+        unit = " " + data['unit'];
       }
 
       Exercise exercise = Exercise(

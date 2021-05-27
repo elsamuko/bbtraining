@@ -92,7 +92,8 @@ class TrainingViewState extends State<TrainingView> {
               Container(
                   width: 60,
                   child: Center(
-                      child: Text("${exercise.pairwise ? "2 x " : ""}${exercise.repsByLevel(functional.level)}"))),
+                      child: Text(
+                          "${exercise.pairwise ? "2 x " : ""}${exercise.repsByLevel(functional.level)}${exercise.unit}"))),
               SizedBox(width: 10),
             ],
           ),
