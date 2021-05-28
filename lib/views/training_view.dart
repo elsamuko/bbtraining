@@ -34,9 +34,12 @@ class TrainingViewState extends State<TrainingView> {
   void initState() {
     Persistence.getExercises().then((value) async {
       exercises = value;
-      functional = await Persistence.getTraining(exercises);
-      mobility = await Persistence.getMobilityTraining(exercises);
-      core = await Persistence.getCoreTraining(exercises);
+      functional = FunctionalTraining();
+      mobility = MobilityTraining();
+      core = CoreTraining();
+      functional = await Persistence.getTraining(functional, exercises);
+      mobility = await Persistence.getTraining(mobility, exercises);
+      core = await Persistence.getTraining(core, exercises);
       settings = await Persistence.getSettings();
       if (functional != null) {
         currentTraining = functional;
@@ -293,8 +296,8 @@ class TrainingViewState extends State<TrainingView> {
             core = CoreTraining.genTraining(exercises, settings);
             setState(() {
               Persistence.setTraining(functional);
-              Persistence.setMobilityTraining(mobility);
-              Persistence.setCoreTraining(core);
+              Persistence.setTraining(mobility);
+              Persistence.setTraining(core);
             });
           },
           child: Text("Training"),

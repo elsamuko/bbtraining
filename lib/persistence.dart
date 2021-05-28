@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 import 'exercise.dart';
 import 'trainings/functional.dart';
+import 'trainings/training.dart';
 import 'settings.dart';
 
 class Persistence {
@@ -39,59 +40,23 @@ class Persistence {
   }
 
   //! loads previous training from prefs
-  static Future<FunctionalTraining> getTraining(List<Exercise> exercises) async {
+  static Future<Training> getTraining(Training training, List<Exercise> exercises) async {
     if (exercises == null) return null;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> persisted = prefs.getStringList('functional_training') ?? [];
+    List<String> persisted = prefs.getStringList(training.name) ?? [];
 
     if (persisted.isNotEmpty) {
-      return FunctionalTraining.from(exercises, persisted);
+      training.fromStringList(exercises, persisted);
+      return training;
     } else {
       return null;
     }
   }
 
-  //! loads previous mobility training from prefs
-  static Future<MobilityTraining> getMobilityTraining(List<Exercise> exercises) async {
-    if (exercises == null) return null;
-
+  static Future<void> setTraining(Training training) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> persisted = prefs.getStringList('mobility_training') ?? [];
-
-    if (persisted.isNotEmpty) {
-      return MobilityTraining.from(exercises, persisted);
-    } else {
-      return null;
-    }
-  }
-
-  static Future<CoreTraining> getCoreTraining(List<Exercise> exercises) async {
-    if (exercises == null) return null;
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> persisted = prefs.getStringList('core_training') ?? [];
-
-    if (persisted.isNotEmpty) {
-      return CoreTraining.from(exercises, persisted);
-    } else {
-      return null;
-    }
-  }
-
-  static Future<void> setTraining(FunctionalTraining training) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList("functional_training", training.toStringList());
-  }
-
-  static Future<void> setMobilityTraining(MobilityTraining training) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList("mobility_training", training.toStringList());
-  }
-
-  static Future<void> setCoreTraining(CoreTraining training) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList("core_training", training.toStringList());
+    prefs.setStringList(training.name, training.toStringList());
   }
 
   static Future<Settings> getSettings() async {
