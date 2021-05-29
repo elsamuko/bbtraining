@@ -5,7 +5,7 @@ import '../exercise.dart';
 import 'training.dart';
 
 class FunctionalTraining extends Training {
-  FunctionalTraining() : super(9);
+  FunctionalTraining() : super(9, 3);
 
   String get name => "functional_training";
 

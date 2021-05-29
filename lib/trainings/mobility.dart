@@ -5,7 +5,7 @@ import '../exercise.dart';
 import 'training.dart';
 
 class MobilityTraining extends Training {
-  MobilityTraining() : super(5);
+  MobilityTraining() : super(5, 0);
 
   String get name => "mobility_training";
 

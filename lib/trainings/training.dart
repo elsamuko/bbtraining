@@ -6,8 +6,9 @@ import '../exercise.dart';
 abstract class Training {
   List<Exercise> exercises;
   Level level = Level.Normal;
+  int separatedAt;
 
-  Training(int count) {
+  Training(int count, this.separatedAt) {
     exercises = List.filled(count, Exercise());
   }
 
@@ -33,6 +34,7 @@ abstract class Training {
 
   String toString() {
     String s = "";
+    int i = 0;
     exercises.forEach((exercise) {
       if (exercise.pairwise) {
         s += "2x";
@@ -40,6 +42,11 @@ abstract class Training {
         s += "  ";
       }
       s += exercise.repsByLevel(level).toString() + " " + exercise.toString() + "\n";
+      if (separatedAt > 0) {
+        if (++i % separatedAt == 0) {
+          s += "\n";
+        }
+      }
     });
     return s;
   }

@@ -4,7 +4,7 @@ import '../exercise.dart';
 import 'training.dart';
 
 class CoreTraining extends Training {
-  CoreTraining() : super(3);
+  CoreTraining() : super(3, 0);
 
   String get name => "core_training";
 
