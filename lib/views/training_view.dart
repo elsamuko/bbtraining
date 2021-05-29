@@ -285,33 +285,42 @@ class TrainingViewState extends State<TrainingView> {
           icon: Icon(Icons.keyboard_arrow_up),
           onPressed: () => carouselController.previousPage(),
         ),
-        TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: Theme.of(context).accentColor,
-          ),
-          key: Key("gen_training"),
-          onPressed: () async {
-            functional = FunctionalTraining.genTraining(exercises, settings);
-            mobility = MobilityTraining.genTraining(exercises, settings);
-            core = CoreTraining.genTraining(exercises, settings);
-            setState(() {
-              Persistence.setTraining(functional);
-              Persistence.setTraining(mobility);
-              Persistence.setTraining(core);
-            });
-          },
-          child: Text("Training"),
+        Container(
+            width: 100,
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Theme.of(context).accentColor,
+              ),
+              key: Key("gen_training"),
+              onPressed: () async {
+                functional = FunctionalTraining.genTraining(exercises, settings);
+                mobility = MobilityTraining.genTraining(exercises, settings);
+                core = CoreTraining.genTraining(exercises, settings);
+                setState(() {
+                  Persistence.setTraining(functional);
+                  Persistence.setTraining(mobility);
+                  Persistence.setTraining(core);
+                });
+              },
+              child: Text("Training"),
+            )),
+        Container(
+          width: 100,
+          child: TextButton(
+              style: TextButton.styleFrom(backgroundColor: Theme.of(context).buttonColor),
+              onPressed: functional == null
+                  ? null
+                  : () {
+                      Clipboard.setData(ClipboardData(text: currentTraining.toString()));
+                      final snackBar = SnackBar(
+                          content: Text(
+                        "Copied ${currentTraining.beautyName.toLowerCase()} into clipboard",
+                        textAlign: TextAlign.center,
+                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+              child: Text("Clipboard")),
         ),
-        TextButton(
-            style: TextButton.styleFrom(backgroundColor: Theme.of(context).buttonColor),
-            onPressed: functional == null
-                ? null
-                : () {
-                    Clipboard.setData(ClipboardData(text: currentTraining.toString()));
-                    final snackBar = SnackBar(content: Text("Copied training into clipboard"));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  },
-            child: Text("Clipboard")),
         IconButton(
           icon: Icon(Icons.keyboard_arrow_down),
           onPressed: () => carouselController.nextPage(),
