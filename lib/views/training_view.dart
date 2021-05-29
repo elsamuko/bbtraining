@@ -282,7 +282,7 @@ class TrainingViewState extends State<TrainingView> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         IconButton(
-          icon: Icon(Icons.keyboard_arrow_left),
+          icon: Icon(Icons.keyboard_arrow_up),
           onPressed: () => carouselController.previousPage(),
         ),
         TextButton(
@@ -313,7 +313,7 @@ class TrainingViewState extends State<TrainingView> {
                   },
             child: Text("Clipboard")),
         IconButton(
-          icon: Icon(Icons.keyboard_arrow_right),
+          icon: Icon(Icons.keyboard_arrow_down),
           onPressed: () => carouselController.nextPage(),
         ),
       ],
