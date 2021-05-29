@@ -71,7 +71,7 @@ class TrainingViewState extends State<TrainingView> {
     }
 
     return SizedBox(
-        width: 320,
+        width: 350,
         child: TextButton(
           key: Key("exercise_$pos"),
           style: TextButton.styleFrom(
