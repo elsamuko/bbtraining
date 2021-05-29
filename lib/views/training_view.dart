@@ -251,7 +251,7 @@ class TrainingViewState extends State<TrainingView> {
     }
 
     if (slides.isEmpty) {
-      slides.add(Text("Hello"));
+      slides.add(Center(child: Text("Hello")));
     }
 
     widgets = CarouselSlider(
