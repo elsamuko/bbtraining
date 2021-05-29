@@ -213,7 +213,7 @@ class TrainingViewState extends State<TrainingView> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(child: Text("Functional Training")),
+            child: Center(child: Text(functional.beautyName)),
           ),
           _block(0),
           SizedBox(height: 12),
@@ -230,7 +230,7 @@ class TrainingViewState extends State<TrainingView> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(child: Text("Mobility Training")),
+            child: Center(child: Text(mobility.beautyName)),
           ),
           _mobility(0),
         ],
@@ -243,7 +243,7 @@ class TrainingViewState extends State<TrainingView> {
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(child: Text("Core Training")),
+            child: Center(child: Text(core.beautyName)),
           ),
           _core(0),
         ],

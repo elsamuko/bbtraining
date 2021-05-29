@@ -7,6 +7,7 @@ class CoreTraining extends Training {
   CoreTraining() : super(3, 0);
 
   String get name => "core_training";
+  String get beautyName => "Core Training";
 
   static CoreTraining from(List<Exercise> exercises, List<String> names) {
     CoreTraining training = CoreTraining();

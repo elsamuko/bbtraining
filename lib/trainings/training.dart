@@ -13,6 +13,7 @@ abstract class Training {
   }
 
   String get name;
+  String get beautyName;
 
   bool contains(Exercise a) {
     return exercises.any((b) => a == b);

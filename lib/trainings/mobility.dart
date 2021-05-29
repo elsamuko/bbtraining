@@ -8,6 +8,7 @@ class MobilityTraining extends Training {
   MobilityTraining() : super(5, 0);
 
   String get name => "mobility_training";
+  String get beautyName => "Mobility Training";
 
   static MobilityTraining from(List<Exercise> exercises, List<String> names) {
     MobilityTraining training = MobilityTraining();

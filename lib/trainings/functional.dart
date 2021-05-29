@@ -8,6 +8,7 @@ class FunctionalTraining extends Training {
   FunctionalTraining() : super(9, 3);
 
   String get name => "functional_training";
+  String get beautyName => "Functional Training";
 
   static FunctionalTraining from(List<Exercise> exercises, List<String> names) {
     FunctionalTraining training = FunctionalTraining();
