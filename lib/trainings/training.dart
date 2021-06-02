@@ -32,6 +32,13 @@ abstract class Training {
     }
   }
 
+  void replace(List<Exercise> exercises, int position) {
+    if (position > this.exercises.length) {
+      return;
+    }
+    this.exercises[position] = Requirement.randomWithRequirements(exercises, requirements[position]);
+  }
+
   void fromStringList(List<Exercise> exercises, List<String> names) {
     for (int i = 0; i < names.length; i++) {
       Exercise exercise = exercises.firstWhere(
