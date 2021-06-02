@@ -16,10 +16,7 @@ class FunctionalTraining extends Training {
     return training;
   }
 
-  static FunctionalTraining genTraining(List<Exercise> exercises, Settings settings) {
-    FunctionalTraining training = FunctionalTraining();
-    training.level = settings.level;
-
+  void genRequirements(Settings settings) {
     Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
     Requirement upper = Requirement("upper", (Exercise exercise) => exercise.isUpper());
     Requirement cardio = Requirement("cardio", (Exercise exercise) => exercise.isCardio());
@@ -31,14 +28,14 @@ class FunctionalTraining extends Training {
     Requirement noBar = Requirement("noBar", (Exercise exercise) => exercise.noBar());
     Requirement noFloor = Requirement("noFloor", (Exercise exercise) => exercise.noFloor());
     Requirement noBank = Requirement("noBank", (Exercise exercise) => exercise.noBank());
-    Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !training.contains(a));
+    Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !contains(a));
 
     Requirement onlyEnabled = Requirement("onlyEnabled", (Exercise a) => a.enabled);
 
     // check, if previous exercise does not stress the same body part
     Function noDoubleStress = (int pos) {
       return Requirement("noDoubleStress",
-          (Exercise a) => !a.stress.any((part) => training.exercises[pos].stress.any((other) => part == other)));
+          (Exercise a) => !a.stress.any((part) => exercises[pos].stress.any((other) => part == other)));
     };
 
     List<Requirement> all = [onlyEnabled, noDuplicates];
@@ -60,20 +57,24 @@ class FunctionalTraining extends Training {
     }
 
     // warm up/cardio
-    training.exercises[0] = Requirement.randomWithRequirements(exercises, all + [cardio, lower]);
-    training.exercises[1] = Requirement.randomWithRequirements(exercises, all + [cardio, upper, noDoubleStress(0)]);
-    training.exercises[2] = Requirement.randomWithRequirements(exercises, all + [cardio, lower, noDoubleStress(1)]);
+    requirements[0] = all + [cardio, lower];
+    requirements[1] = all + [cardio, upper, noDoubleStress(0)];
+    requirements[2] = all + [cardio, lower, noDoubleStress(1)];
 
     // strength
-    training.exercises[3] = Requirement.randomWithRequirements(exercises, all + [strength, lower, noDoubleStress(2)]);
-    training.exercises[4] = Requirement.randomWithRequirements(exercises, all + [strength, upper, noDoubleStress(3)]);
-    training.exercises[5] = Requirement.randomWithRequirements(exercises, all + [strength, lower, noDoubleStress(4)]);
+    requirements[3] = all + [strength, lower, noDoubleStress(2)];
+    requirements[4] = all + [strength, upper, noDoubleStress(3)];
+    requirements[5] = all + [strength, lower, noDoubleStress(4)];
 
     // mobility
-    training.exercises[6] = Requirement.randomWithRequirements(exercises, all + [mobility, lower, noDoubleStress(5)]);
-    training.exercises[7] = Requirement.randomWithRequirements(exercises, all + [mobility, upper, noDoubleStress(6)]);
-    training.exercises[8] = Requirement.randomWithRequirements(exercises, all + [mobility, lower, noDoubleStress(7)]);
+    requirements[6] = all + [mobility, lower, noDoubleStress(5)];
+    requirements[7] = all + [mobility, upper, noDoubleStress(6)];
+    requirements[8] = all + [mobility, lower, noDoubleStress(7)];
+  }
 
+  static FunctionalTraining genTraining(List<Exercise> exercises, Settings settings) {
+    FunctionalTraining training = FunctionalTraining();
+    training.gen(exercises, settings);
     return training;
   }
 

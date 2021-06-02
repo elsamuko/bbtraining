@@ -15,10 +15,7 @@ class CoreTraining extends Training {
     return training;
   }
 
-  static CoreTraining genTraining(List<Exercise> exercises, Settings settings) {
-    CoreTraining training = CoreTraining();
-    training.level = settings.level;
-
+  void genRequirements(Settings settings) {
     Requirement coreExtra = Requirement("coreExtra", (Exercise exercise) => exercise.isCoreExtra());
 
     Requirement indoor = Requirement("indoor", (Exercise exercise) => exercise.isIndoor());
@@ -26,7 +23,7 @@ class CoreTraining extends Training {
     Requirement noBar = Requirement("noBar", (Exercise exercise) => exercise.noBar());
     Requirement noFloor = Requirement("noFloor", (Exercise exercise) => exercise.noFloor());
     Requirement noBank = Requirement("noBank", (Exercise exercise) => exercise.noBank());
-    Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !training.contains(a));
+    Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !contains(a));
 
     Requirement onlyEnabled = Requirement("onlyEnabled", (Exercise a) => a.enabled);
 
@@ -39,10 +36,14 @@ class CoreTraining extends Training {
       all.add(noFloor);
     }
 
-    for (int i = 0; i < training.exercises.length; ++i) {
-      training.exercises[i] = Requirement.randomWithRequirements(exercises, all);
+    for (int i = 0; i < exercises.length; ++i) {
+      requirements[i] = all;
     }
+  }
 
+  static CoreTraining genTraining(List<Exercise> exercises, Settings settings) {
+    CoreTraining training = CoreTraining();
+    training.gen(exercises, settings);
     return training;
   }
 

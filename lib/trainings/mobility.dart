@@ -16,10 +16,7 @@ class MobilityTraining extends Training {
     return training;
   }
 
-  static MobilityTraining genTraining(List<Exercise> exercises, Settings settings) {
-    MobilityTraining training = MobilityTraining();
-    training.level = settings.level;
-
+  void genRequirements(Settings settings) {
     Requirement mobilityExtra = Requirement("mobilityExtra", (Exercise exercise) => exercise.isMobilityExtra());
 
     Requirement indoor = Requirement("indoor", (Exercise exercise) => exercise.isIndoor());
@@ -27,7 +24,7 @@ class MobilityTraining extends Training {
     Requirement noBar = Requirement("noBar", (Exercise exercise) => exercise.noBar());
     Requirement noFloor = Requirement("noFloor", (Exercise exercise) => exercise.noFloor());
     Requirement noBank = Requirement("noBank", (Exercise exercise) => exercise.noBank());
-    Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !training.contains(a));
+    Requirement noDuplicates = Requirement("noDuplicates", (Exercise a) => !contains(a));
 
     Requirement onlyEnabled = Requirement("onlyEnabled", (Exercise a) => a.enabled);
 
@@ -40,10 +37,14 @@ class MobilityTraining extends Training {
       all.add(noFloor);
     }
 
-    for (int i = 0; i < training.exercises.length; ++i) {
-      training.exercises[i] = Requirement.randomWithRequirements(exercises, all);
+    for (int i = 0; i < exercises.length; ++i) {
+      requirements[i] = all;
     }
+  }
 
+  static MobilityTraining genTraining(List<Exercise> exercises, Settings settings) {
+    MobilityTraining training = MobilityTraining();
+    training.gen(exercises, settings);
     return training;
   }
 

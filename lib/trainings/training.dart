@@ -5,11 +5,13 @@ import '../exercise.dart';
 
 abstract class Training {
   List<Exercise> exercises;
+  List<List<Requirement>> requirements; // requirements for each exercise
   Level level = Level.Normal;
   int separatedAt;
 
   Training(int count, this.separatedAt) {
     exercises = List.filled(count, Exercise());
+    requirements = List.filled(count, []);
   }
 
   String get name;
@@ -17,6 +19,17 @@ abstract class Training {
 
   bool contains(Exercise a) {
     return exercises.any((b) => a == b);
+  }
+
+  void genRequirements(Settings settings);
+
+  void gen(List<Exercise> exercises, Settings settings) {
+    genRequirements(settings);
+    level = settings.level;
+
+    for (int i = 0; i < this.exercises.length; ++i) {
+      this.exercises[i] = Requirement.randomWithRequirements(exercises, requirements[i]);
+    }
   }
 
   void fromStringList(List<Exercise> exercises, List<String> names) {
