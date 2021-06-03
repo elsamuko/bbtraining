@@ -1,5 +1,6 @@
 import 'package:bbtraining/trainings/core.dart';
 import 'package:bbtraining/trainings/mobility.dart';
+import 'package:bbtraining/trainings/training.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
@@ -23,10 +24,9 @@ enum ExercisePosition { Top, Center, Bottom }
 
 class TrainingViewState extends State<TrainingView> {
   Settings settings;
-  var currentTraining;
-  FunctionalTraining functional;
-  MobilityTraining mobility;
-  CoreTraining core;
+  int current = 0;
+  bool loaded = false;
+  List trainings;
   List<Exercise> exercises;
   CarouselController carouselController = CarouselController();
 
@@ -34,23 +34,26 @@ class TrainingViewState extends State<TrainingView> {
   void initState() {
     Persistence.getExercises().then((value) async {
       exercises = value;
-      functional = FunctionalTraining();
-      mobility = MobilityTraining();
-      core = CoreTraining();
-      functional = await Persistence.getTraining(functional, exercises);
-      mobility = await Persistence.getTraining(mobility, exercises);
-      core = await Persistence.getTraining(core, exercises);
+      trainings = [FunctionalTraining(), MobilityTraining(), CoreTraining()];
+      for (int i = 0; i < trainings.length; ++i) {
+        trainings[i] = await Persistence.getTraining(trainings[i], exercises);
+      }
       settings = await Persistence.getSettings();
-      if (functional != null) {
-        currentTraining = functional;
-        functional.level = settings.level;
+
+      if (trainings[0] == null) {
+        trainings[0] = FunctionalTraining.genTraining(exercises, settings);
       }
-      if (mobility != null) {
-        mobility.level = settings.level;
+      if (trainings[1] == null) {
+        trainings[1] = MobilityTraining.genTraining(exercises, settings);
       }
-      if (core != null) {
-        core.level = settings.level;
+      if (trainings[2] == null) {
+        trainings[2] = CoreTraining.genTraining(exercises, settings);
       }
+
+      for (int i = 0; i < trainings.length; ++i) {
+        trainings[i].level = settings.level;
+      }
+      loaded = true;
       setState(() {});
     });
     super.initState();
@@ -106,9 +109,9 @@ class TrainingViewState extends State<TrainingView> {
   Column _block(int pos) {
     return Column(
       children: [
-        _exerciseButton(pos, functional.exercises[pos], ExercisePosition.Top),
-        _exerciseButton(pos + 1, functional.exercises[pos + 1], ExercisePosition.Center),
-        _exerciseButton(pos + 2, functional.exercises[pos + 2], ExercisePosition.Bottom),
+        _exerciseButton(pos, trainings[0].exercises[pos], ExercisePosition.Top),
+        _exerciseButton(pos + 1, trainings[0].exercises[pos + 1], ExercisePosition.Center),
+        _exerciseButton(pos + 2, trainings[0].exercises[pos + 2], ExercisePosition.Bottom),
       ],
     );
   }
@@ -116,11 +119,11 @@ class TrainingViewState extends State<TrainingView> {
   Column _mobility(int pos) {
     return Column(
       children: [
-        _exerciseButton(pos, mobility.exercises[pos], ExercisePosition.Top),
-        _exerciseButton(pos + 1, mobility.exercises[pos + 1], ExercisePosition.Center),
-        _exerciseButton(pos + 2, mobility.exercises[pos + 2], ExercisePosition.Center),
-        _exerciseButton(pos + 3, mobility.exercises[pos + 3], ExercisePosition.Center),
-        _exerciseButton(pos + 4, mobility.exercises[pos + 4], ExercisePosition.Bottom),
+        _exerciseButton(pos, trainings[1].exercises[pos], ExercisePosition.Top),
+        _exerciseButton(pos + 1, trainings[1].exercises[pos + 1], ExercisePosition.Center),
+        _exerciseButton(pos + 2, trainings[1].exercises[pos + 2], ExercisePosition.Center),
+        _exerciseButton(pos + 3, trainings[1].exercises[pos + 3], ExercisePosition.Center),
+        _exerciseButton(pos + 4, trainings[1].exercises[pos + 4], ExercisePosition.Bottom),
       ],
     );
   }
@@ -128,9 +131,9 @@ class TrainingViewState extends State<TrainingView> {
   Column _core(int pos) {
     return Column(
       children: [
-        _exerciseButton(pos, core.exercises[pos], ExercisePosition.Top),
-        _exerciseButton(pos + 1, core.exercises[pos + 1], ExercisePosition.Center),
-        _exerciseButton(pos + 2, core.exercises[pos + 2], ExercisePosition.Bottom),
+        _exerciseButton(pos, trainings[2].exercises[pos], ExercisePosition.Top),
+        _exerciseButton(pos + 1, trainings[2].exercises[pos + 1], ExercisePosition.Center),
+        _exerciseButton(pos + 2, trainings[2].exercises[pos + 2], ExercisePosition.Bottom),
       ],
     );
   }
@@ -155,9 +158,9 @@ class TrainingViewState extends State<TrainingView> {
       return SettingsView(settings);
     }));
     setState(() {
-      functional.level = settings.level;
-      mobility.level = settings.level;
-      core.level = settings.level;
+      for (int i = 0; i < trainings.length; ++i) {
+        trainings[i].level = settings.level;
+      }
       Persistence.setSettings(settings);
     });
   }
@@ -206,14 +209,13 @@ class TrainingViewState extends State<TrainingView> {
   Widget build(BuildContext context) {
     var widgets;
     List<Widget> slides = [];
-
-    if (functional != null) {
+    if (loaded) {
       slides.add(ListView(
         physics: ClampingScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(child: Text(functional.beautyName)),
+            child: Center(child: Text(trainings[0].beautyName)),
           ),
           _block(0),
           SizedBox(height: 12),
@@ -222,35 +224,29 @@ class TrainingViewState extends State<TrainingView> {
           _block(6),
         ],
       ));
-    }
 
-    if (mobility != null) {
       slides.add(ListView(
         physics: ClampingScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(child: Text(mobility.beautyName)),
+            child: Center(child: Text(trainings[1].beautyName)),
           ),
           _mobility(0),
         ],
       ));
-    }
 
-    if (core != null) {
       slides.add(ListView(
         physics: ClampingScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(child: Text(core.beautyName)),
+            child: Center(child: Text(trainings[2].beautyName)),
           ),
           _core(0),
         ],
       ));
-    }
-
-    if (slides.isEmpty) {
+    } else {
       slides.add(Center(child: Text("Hello")));
     }
 
@@ -258,17 +254,7 @@ class TrainingViewState extends State<TrainingView> {
       carouselController: carouselController,
       options: CarouselOptions(
         onPageChanged: (int index, CarouselPageChangedReason reason) {
-          switch (index % 3) {
-            case 0:
-              currentTraining = functional;
-              break;
-            case 1:
-              currentTraining = mobility;
-              break;
-            case 2:
-              currentTraining = core;
-              break;
-          }
+          current = index & trainings.length;
         },
         viewportFraction: 1,
         // enlargeCenterPage: true,
@@ -293,13 +279,13 @@ class TrainingViewState extends State<TrainingView> {
               ),
               key: Key("gen_training"),
               onPressed: () async {
-                functional = FunctionalTraining.genTraining(exercises, settings);
-                mobility = MobilityTraining.genTraining(exercises, settings);
-                core = CoreTraining.genTraining(exercises, settings);
+                trainings[0] = FunctionalTraining.genTraining(exercises, settings);
+                trainings[1] = MobilityTraining.genTraining(exercises, settings);
+                trainings[2] = CoreTraining.genTraining(exercises, settings);
                 setState(() {
-                  Persistence.setTraining(functional);
-                  Persistence.setTraining(mobility);
-                  Persistence.setTraining(core);
+                  trainings.forEach((training) {
+                    Persistence.setTraining(training);
+                  });
                 });
               },
               child: Text("Training"),
@@ -308,17 +294,15 @@ class TrainingViewState extends State<TrainingView> {
           width: 100,
           child: TextButton(
               style: TextButton.styleFrom(backgroundColor: Theme.of(context).buttonColor),
-              onPressed: functional == null
-                  ? null
-                  : () {
-                      Clipboard.setData(ClipboardData(text: currentTraining.toString()));
-                      final snackBar = SnackBar(
-                          content: Text(
-                        "Copied ${currentTraining.beautyName.toLowerCase()} into clipboard",
-                        textAlign: TextAlign.center,
-                      ));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    },
+              onPressed: () {
+                Clipboard.setData(ClipboardData(text: trainings[current].toString()));
+                final snackBar = SnackBar(
+                    content: Text(
+                  "Copied ${trainings[current].beautyName.toLowerCase()} into clipboard",
+                  textAlign: TextAlign.center,
+                ));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
               child: Text("Clipboard")),
         ),
         IconButton(
