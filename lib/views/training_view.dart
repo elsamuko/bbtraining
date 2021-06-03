@@ -59,7 +59,7 @@ class TrainingViewState extends State<TrainingView> {
     super.initState();
   }
 
-  SizedBox _exerciseButton(int pos, Exercise exercise, ExercisePosition position) {
+  Dismissible _exerciseButton(int pos, Exercise exercise, ExercisePosition position) {
     BorderRadius radius;
     switch (position) {
       case ExercisePosition.Top:
@@ -73,37 +73,49 @@ class TrainingViewState extends State<TrainingView> {
         break;
     }
 
-    return SizedBox(
-        width: 350,
-        child: TextButton(
-          key: Key("exercise_$pos"),
-          style: TextButton.styleFrom(
-            visualDensity: VisualDensity.compact,
-            padding: EdgeInsets.symmetric(vertical: 18),
-            shape: RoundedRectangleBorder(
-              borderRadius: radius,
-            ),
-            backgroundColor: Theme.of(context).accentColor,
-          ),
-          onPressed: () => showExercise(exercise),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(width: 20),
-              Center(
-                  child: Text(
-                "${exercise.name}",
-              )),
-              Expanded(child: SizedBox(width: 10)),
-              Container(
-                  width: 60,
-                  child: Center(
+    return Dismissible(
+        key: UniqueKey(),
+        onDismissed: (direction) {
+          trainings[current].replace(exercises, pos);
+          setState(() {});
+        },
+        resizeDuration: Duration(microseconds: 1),
+        background: Container(
+          width: 350,
+          color: Theme.of(context).accentColor.withRed(100),
+          margin: EdgeInsets.symmetric(vertical: 2),
+        ),
+        child: SizedBox(
+            width: 350,
+            child: TextButton(
+              key: Key("exercise_$pos"),
+              style: TextButton.styleFrom(
+                visualDensity: VisualDensity.compact,
+                padding: EdgeInsets.symmetric(vertical: 18),
+                shape: RoundedRectangleBorder(
+                  borderRadius: radius,
+                ),
+                backgroundColor: Theme.of(context).accentColor,
+              ),
+              onPressed: () => showExercise(exercise),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: 20),
+                  Center(
                       child: Text(
-                          "${exercise.pairwise ? "2 x " : ""}${exercise.repsByLevel(functional.level)}${exercise.unit}"))),
-              SizedBox(width: 10),
-            ],
-          ),
-        ));
+                    "${exercise.name}",
+                  )),
+                  Expanded(child: SizedBox(width: 10)),
+                  Container(
+                      width: 60,
+                      child: Center(
+                          child: Text(
+                              "${exercise.pairwise ? "2 x " : ""}${exercise.repsByLevel(settings.level)}${exercise.unit}"))),
+                  SizedBox(width: 10),
+                ],
+              ),
+            )));
   }
 
   Column _block(int pos) {
