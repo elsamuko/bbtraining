@@ -32,10 +32,20 @@ class FunctionalTraining extends Training {
 
     Requirement onlyEnabled = Requirement("onlyEnabled", (Exercise a) => a.enabled);
 
-    // check, if previous exercise does not stress the same body part
+    // check, if previous/next exercise does not stress the same body part
     Function noDoubleStress = (int pos) {
-      return Requirement("noDoubleStress",
-          (Exercise a) => !a.stress.any((part) => exercises[pos].stress.any((other) => part == other)));
+      return Requirement("noDoubleStress", (Exercise a) {
+        bool previousNotSame = true;
+        if (pos > 0) {
+          previousNotSame = !a.stresses.any((stress) => exercises[pos - 1].sameStressAs(stress));
+        }
+
+        bool nextNotSame = true;
+        if (pos + 1 < exercises.length) {
+          nextNotSame = !a.stresses.any((stress) => exercises[pos + 1].sameStressAs(stress));
+        }
+        return previousNotSame && nextNotSame;
+      });
     };
 
     List<Requirement> all = [onlyEnabled, noDuplicates];
@@ -57,19 +67,19 @@ class FunctionalTraining extends Training {
     }
 
     // warm up/cardio
-    requirements[0] = all + [cardio, lower];
-    requirements[1] = all + [cardio, upper, noDoubleStress(0)];
-    requirements[2] = all + [cardio, lower, noDoubleStress(1)];
+    requirements[0] = all + [cardio, lower, noDoubleStress(0)];
+    requirements[1] = all + [cardio, upper, noDoubleStress(1)];
+    requirements[2] = all + [cardio, lower, noDoubleStress(2)];
 
     // strength
-    requirements[3] = all + [strength, lower, noDoubleStress(2)];
-    requirements[4] = all + [strength, upper, noDoubleStress(3)];
-    requirements[5] = all + [strength, lower, noDoubleStress(4)];
+    requirements[3] = all + [strength, lower, noDoubleStress(3)];
+    requirements[4] = all + [strength, upper, noDoubleStress(4)];
+    requirements[5] = all + [strength, lower, noDoubleStress(5)];
 
     // mobility
-    requirements[6] = all + [mobility, lower, noDoubleStress(5)];
-    requirements[7] = all + [mobility, upper, noDoubleStress(6)];
-    requirements[8] = all + [mobility, lower, noDoubleStress(7)];
+    requirements[6] = all + [mobility, lower, noDoubleStress(6)];
+    requirements[7] = all + [mobility, upper, noDoubleStress(7)];
+    requirements[8] = all + [mobility, lower, noDoubleStress(8)];
   }
 
   static FunctionalTraining genTraining(List<Exercise> exercises, Settings settings) {
