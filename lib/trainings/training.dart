@@ -36,7 +36,8 @@ abstract class Training {
     if (position > this.exercises.length) {
       return;
     }
-    this.exercises[position] = Requirement.randomWithRequirements(exercises, requirements[position]);
+    Exercise newOne = Requirement.randomWithRequirements(exercises, requirements[position]);
+    this.exercises[position] = newOne;
   }
 
   void fromStringList(List<Exercise> exercises, List<String> names) {
