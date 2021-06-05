@@ -15,7 +15,7 @@ class Exercise {
   bool bar;
   bool floor;
   bool outdoor;
-  List<String> stress; // list of stressed body parts
+  List<String> stresses; // list of stressed body parts
   bool pairwise;
   int reps;
   String unit;
@@ -47,6 +47,13 @@ class Exercise {
   bool noFloor() => !floor;
 
   bool noBank() => !bank;
+
+  bool sameStressAs(String stress) {
+    if (stresses == null) {
+      return false;
+    }
+    return stresses.contains(stress);
+  }
 
   int repsByLevel(Level level) {
     double dreps = reps.toDouble();
@@ -80,7 +87,7 @@ class Exercise {
       this.bar,
       this.floor,
       this.outdoor,
-      this.stress,
+      this.stresses,
       this.pairwise = false,
       this.reps = 10,
       this.unit,
@@ -94,9 +101,9 @@ class Exercise {
     list.forEach((data) {
       // if it's 0, type is int -> dismiss
       // if it's "shoulder knee", split
-      List<String> stress = [];
+      List<String> stresses = [];
       if (data['stress'].runtimeType == "".runtimeType) {
-        stress = data['stress'].split(" ");
+        stresses = data['stress'].split(" ");
       }
 
       // if it's 0, type is int -> dismiss
@@ -127,7 +134,7 @@ class Exercise {
         bar: (data['bar'] ?? 0) > 0,
         floor: (data['floor'] ?? 0) > 0,
         outdoor: (data['outdoor'] ?? 0) > 0,
-        stress: stress,
+        stresses: stresses,
         pairwise: (data['pairwise'] ?? 0) > 0,
         reps: data['reps']?.toInt() ?? 0,
         unit: unit,
