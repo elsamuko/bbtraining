@@ -34,11 +34,13 @@ class TrainingViewState extends State<TrainingView> {
   void initState() {
     Persistence.getExercises().then((value) async {
       exercises = value;
+      settings = await Persistence.getSettings();
+
       trainings = [FunctionalTraining(), MobilityTraining(), CoreTraining()];
       for (int i = 0; i < trainings.length; ++i) {
         trainings[i] = await Persistence.getTraining(trainings[i], exercises);
+        trainings[i].genRequirements(settings);
       }
-      settings = await Persistence.getSettings();
 
       if (trainings[0] == null) {
         trainings[0] = FunctionalTraining.genTraining(exercises, settings);
