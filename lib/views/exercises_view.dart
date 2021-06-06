@@ -59,7 +59,12 @@ class ExercisesViewState extends State<ExercisesView> {
                       itemBuilder: (context, i) {
                         return ListTile(
                           title: GestureDetector(
-                            child: Text(widget.exercises[i].name),
+                            child: Text(
+                              widget.exercises[i].name,
+                              style: TextStyle(
+                                color: widget.exercises[i].enabled ? Colors.white : Colors.white38,
+                              ),
+                            ),
                             onTap: () => showExercise(widget.exercises[i]),
                           ),
                           trailing: Switch(
