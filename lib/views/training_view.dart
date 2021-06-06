@@ -84,7 +84,7 @@ class TrainingViewState extends State<TrainingView> {
         resizeDuration: Duration(microseconds: 1),
         background: Container(
           width: 350,
-          color: Theme.of(context).accentColor.withRed(100),
+          color: Theme.of(context).accentColor.withOpacity(0.5),
           margin: EdgeInsets.symmetric(vertical: 2),
         ),
         child: SizedBox(
