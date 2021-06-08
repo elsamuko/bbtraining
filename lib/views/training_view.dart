@@ -25,8 +25,7 @@ enum ExercisePosition { Top, Center, Bottom }
 class TrainingViewState extends State<TrainingView> {
   Settings settings;
   int current = 0;
-  bool loaded = false;
-  List trainings;
+  List trainings = [];
   List<Exercise> exercises;
   CarouselController carouselController = CarouselController();
 
@@ -55,7 +54,7 @@ class TrainingViewState extends State<TrainingView> {
       for (int i = 0; i < trainings.length; ++i) {
         trainings[i].level = settings.level;
       }
-      loaded = true;
+
       setState(() {});
     });
     super.initState();
@@ -223,7 +222,7 @@ class TrainingViewState extends State<TrainingView> {
   Widget build(BuildContext context) {
     var widgets;
     List<Widget> slides = [];
-    if (loaded) {
+    if (trainings.isNotEmpty) {
       slides.add(ListView(
         physics: ClampingScrollPhysics(),
         children: [
