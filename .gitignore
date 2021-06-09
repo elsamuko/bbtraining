@@ -4,6 +4,7 @@
 !*/
 !*.dart
 screenshots
+!res/images/*
 
 build
 Generated.xcconfig
