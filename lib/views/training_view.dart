@@ -25,7 +25,7 @@ enum ExercisePosition { Top, Center, Bottom }
 class TrainingViewState extends State<TrainingView> {
   Settings settings;
   int current = 0;
-  List trainings = [];
+  List<Training> trainings = [];
   List<Exercise> exercises;
   CarouselController carouselController = CarouselController();
 
