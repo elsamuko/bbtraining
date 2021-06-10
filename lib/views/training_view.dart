@@ -293,14 +293,19 @@ class TrainingViewState extends State<TrainingView> {
               ),
               key: Key("gen_training"),
               onPressed: () async {
-                trainings[0] = FunctionalTraining.genTraining(exercises, settings);
-                trainings[1] = MobilityTraining.genTraining(exercises, settings);
-                trainings[2] = CoreTraining.genTraining(exercises, settings);
-                setState(() {
-                  trainings.forEach((training) {
-                    Persistence.setTraining(training);
-                  });
-                });
+                switch (current) {
+                  case 0:
+                    trainings[current] = FunctionalTraining.genTraining(exercises, settings);
+                    break;
+                  case 1:
+                    trainings[current] = MobilityTraining.genTraining(exercises, settings);
+                    break;
+                  case 2:
+                    trainings[current] = CoreTraining.genTraining(exercises, settings);
+                    break;
+                }
+                Persistence.setTraining(trainings[current]);
+                setState(() {});
               },
               child: Text("Training"),
             )),
