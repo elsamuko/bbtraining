@@ -78,6 +78,7 @@ class TrainingViewState extends State<TrainingView> {
         key: UniqueKey(),
         onDismissed: (direction) {
           trainings[current].replace(exercises, pos);
+          Persistence.setTraining(trainings[current]);
           setState(() {});
         },
         resizeDuration: Duration(microseconds: 1),
