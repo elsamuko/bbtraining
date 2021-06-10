@@ -38,7 +38,6 @@ class TrainingViewState extends State<TrainingView> {
       trainings = [FunctionalTraining(), MobilityTraining(), CoreTraining()];
       for (int i = 0; i < trainings.length; ++i) {
         trainings[i] = await Persistence.getTraining(trainings[i], exercises);
-        trainings[i].genRequirements(settings);
       }
 
       if (trainings[0] == null) {
@@ -53,6 +52,7 @@ class TrainingViewState extends State<TrainingView> {
 
       for (int i = 0; i < trainings.length; ++i) {
         trainings[i].level = settings.level;
+        trainings[i].genRequirements(settings);
       }
 
       setState(() {});
