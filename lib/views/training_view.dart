@@ -84,8 +84,12 @@ class TrainingViewState extends State<TrainingView> {
         resizeDuration: Duration(microseconds: 1),
         background: Container(
           width: 350,
-          color: Theme.of(context).accentColor.withOpacity(0.5),
           margin: EdgeInsets.symmetric(vertical: 2),
+          decoration: ShapeDecoration(
+              color: Theme.of(context).accentColor.withOpacity(0.5),
+              shape: RoundedRectangleBorder(
+                borderRadius: radius,
+              )),
         ),
         child: SizedBox(
             width: 350,
@@ -94,9 +98,7 @@ class TrainingViewState extends State<TrainingView> {
               style: TextButton.styleFrom(
                 visualDensity: VisualDensity.compact,
                 padding: EdgeInsets.symmetric(vertical: 18),
-                shape: RoundedRectangleBorder(
-                  borderRadius: radius,
-                ),
+                shape: RoundedRectangleBorder(borderRadius: radius),
                 backgroundColor: Theme.of(context).accentColor,
               ),
               onPressed: () => showExercise(exercise),
