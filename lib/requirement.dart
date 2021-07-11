@@ -9,6 +9,7 @@ class Requirement {
   Requirement(this.name, this.callback);
   String toString() => name;
   bool call(Exercise ex) => callback(ex);
+  static Random random = Random();
 
   static List<Exercise> allWithRequirements(List<Exercise> exercises, List<Requirement> requirements) {
     List<Exercise> filtered = exercises.where((exercise) => requirements.every((filter) => filter(exercise))).toList();
@@ -17,6 +18,6 @@ class Requirement {
 
   static Exercise randomWithRequirements(List<Exercise> exercises, List<Requirement> requirements) {
     List<Exercise> filtered = allWithRequirements(exercises, requirements);
-    return filtered[Random().nextInt(filtered.length)];
+    return filtered[random.nextInt(filtered.length)];
   }
 }
