@@ -91,7 +91,7 @@ class FunctionalTraining extends Training {
   // print all exercises, which fulfill current requirements
   // run with latest exercises:
   // scripts/gen_json.py res/exercises.ods > res/exercises.json
-  static void dumpFiltered(List<Exercise> exercises) {
+  static List<Exercise> dumpFiltered(List<Exercise> exercises) {
     Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
     Requirement upper = Requirement("upper", (Exercise exercise) => exercise.isUpper());
     Requirement cardio = Requirement("cardio", (Exercise exercise) => exercise.isCardio());
@@ -99,10 +99,13 @@ class FunctionalTraining extends Training {
     Requirement mobility = Requirement("mobility", (Exercise exercise) => exercise.isMobility());
 
     List<Requirement> all = [];
+    List<Exercise> collected = [];
 
     Function printer = (List<Requirement> requirements) {
       print(requirements);
-      Requirement.allWithRequirements(exercises, requirements).forEach((element) {
+      List<Exercise> filtered = Requirement.allWithRequirements(exercises, requirements);
+      collected += filtered;
+      filtered.forEach((element) {
         print("    $element");
       });
     };
@@ -118,5 +121,7 @@ class FunctionalTraining extends Training {
     printer(all + [mobility, lower]);
     printer(all + [mobility, upper]);
     print("");
+
+    return collected;
   }
 }
