@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../exercise.dart';
-import 'exercise_view.dart';
+import 'package:bbtraining/exercise.dart';
+import 'package:bbtraining/views/exercise_view.dart';
 
 class ExercisesView extends StatefulWidget {
   List<Exercise> exercises;

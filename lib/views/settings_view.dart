@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../settings.dart';
-import '../level.dart';
+import 'package:bbtraining/settings.dart';
+import 'package:bbtraining/level.dart';
 
 class SettingsView extends StatefulWidget {
   Settings settings;

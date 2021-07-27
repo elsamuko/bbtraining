@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'exercise_view.dart';
-import 'settings_view.dart';
-import 'exercises_view.dart';
-import '../settings.dart';
-import '../trainings/functional.dart';
-import '../exercise.dart';
-import '../persistence.dart';
+import 'package:bbtraining/views//exercise_view.dart';
+import 'package:bbtraining/views/settings_view.dart';
+import 'package:bbtraining/views/exercises_view.dart';
+import 'package:bbtraining/settings.dart';
+import 'package:bbtraining/trainings/functional.dart';
+import 'package:bbtraining/exercise.dart';
+import 'package:bbtraining/persistence.dart';
 
 class TrainingView extends StatefulWidget {
   TrainingView({Key key}) : super(key: key);
