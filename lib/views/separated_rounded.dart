@@ -8,7 +8,7 @@ class SeparatedRounded extends StatelessWidget {
 
   SeparatedRounded({
     @required this.children,
-    this.height: 40.0,
+    this.height = 40.0,
     Key key,
   }) : super(key: key);
 
