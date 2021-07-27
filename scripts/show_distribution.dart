@@ -42,7 +42,7 @@ int main(List<String> args) {
   }
 
   counts_rand.forEach((key, value) {
-    print("${counts_ref[key]} : ${value} ${key}");
+    print("${counts_ref[key]} : $value $key");
   });
 
   return 0;
