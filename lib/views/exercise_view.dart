@@ -2,14 +2,14 @@ import 'package:bbtraining/views/separated_rounded.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import '../exercise.dart';
+import 'package:bbtraining/exercise.dart';
 
 extension RangeExtension on int {
   List<Widget> each(Widget w) => [for (int i = 0; i < this; i++) w];
 }
 
 class ExerciseView extends StatefulWidget {
-  Exercise exercise;
+  final Exercise exercise;
 
   ExerciseView(this.exercise, {Key key}) : super(key: key);
 

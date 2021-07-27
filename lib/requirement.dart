@@ -1,4 +1,4 @@
-import 'exercise.dart';
+import 'package:bbtraining/exercise.dart';
 import 'dart:math';
 
 typedef ExerciseCallback = bool Function(Exercise exercise);
@@ -7,6 +7,7 @@ class Requirement {
   String name;
   ExerciseCallback callback;
   Requirement(this.name, this.callback);
+  @override
   String toString() => name;
   bool call(Exercise ex) => callback(ex);
   static Random random = Random();

@@ -1,12 +1,14 @@
-import '../requirement.dart';
-import '../settings.dart';
-import '../exercise.dart';
-import 'training.dart';
+import 'package:bbtraining/requirement.dart';
+import 'package:bbtraining/settings.dart';
+import 'package:bbtraining/exercise.dart';
+import 'package:bbtraining/trainings/training.dart';
 
 class CoreTraining extends Training {
   CoreTraining() : super(3, 0);
 
+  @override
   String get name => "core_training";
+  @override
   String get beautyName => "Core Training";
 
   static CoreTraining from(List<Exercise> exercises, List<String> names) {
@@ -15,6 +17,7 @@ class CoreTraining extends Training {
     return training;
   }
 
+  @override
   void genRequirements(Settings settings) {
     Requirement coreExtra = Requirement("coreExtra", (Exercise exercise) => exercise.isCoreExtra());
 

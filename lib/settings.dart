@@ -1,4 +1,4 @@
-import 'level.dart';
+import 'package:bbtraining/level.dart';
 
 class Settings {
   bool useWeights = false;

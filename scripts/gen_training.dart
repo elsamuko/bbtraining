@@ -3,11 +3,11 @@
 import 'dart:io';
 import 'dart:convert';
 
-import '../lib/settings.dart';
-import '../lib/trainings/functional.dart';
-import '../lib/trainings/core.dart';
-import '../lib/trainings/mobility.dart';
-import '../lib/exercise.dart';
+import 'package:bbtraining/settings.dart';
+import 'package:bbtraining/trainings/functional.dart';
+import 'package:bbtraining/trainings/core.dart';
+import 'package:bbtraining/trainings/mobility.dart';
+import 'package:bbtraining/exercise.dart';
 
 int main(List<String> args) {
   if (args.isEmpty) {

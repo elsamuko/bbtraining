@@ -1,7 +1,7 @@
-import '../level.dart';
-import '../requirement.dart';
-import '../settings.dart';
-import '../exercise.dart';
+import 'package:bbtraining/level.dart';
+import 'package:bbtraining/requirement.dart';
+import 'package:bbtraining/settings.dart';
+import 'package:bbtraining/exercise.dart';
 
 abstract class Training {
   List<Exercise> exercises;

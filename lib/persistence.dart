@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 
-import 'exercise.dart';
-import 'trainings/training.dart';
-import 'settings.dart';
+import 'package:bbtraining/exercise.dart';
+import 'package:bbtraining/trainings/training.dart';
+import 'package:bbtraining/settings.dart';
 
 class Persistence {
   //! \returns list of exercises from internal json

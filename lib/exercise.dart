@@ -1,4 +1,4 @@
-import 'level.dart';
+import 'package:bbtraining/level.dart';
 
 class Exercise {
   String name;
@@ -94,6 +94,7 @@ class Exercise {
       this.instructions,
       this.images});
 
+  @override
   String toString() => name;
 
   static List<Exercise> fromList(List list) {

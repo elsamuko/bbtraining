@@ -3,9 +3,9 @@
 import 'dart:io';
 import 'dart:convert';
 
-import '../lib/settings.dart';
-import '../lib/trainings/functional.dart';
-import '../lib/exercise.dart';
+import 'package:bbtraining/settings.dart';
+import 'package:bbtraining/trainings/functional.dart';
+import 'package:bbtraining/exercise.dart';
 
 int main(List<String> args) {
   if (args.isEmpty) {
@@ -16,11 +16,11 @@ int main(List<String> args) {
   String content = f.readAsStringSync();
   List json = jsonDecode(content);
   List<Exercise> exercises = Exercise.fromList(json);
-  Map<Exercise, int> counts_rand = {};
-  Map<Exercise, int> counts_ref = {};
+  Map<Exercise, int> countsRand = {};
+  Map<Exercise, int> countsRef = {};
   exercises.forEach((e) {
-    counts_rand[e] = 0;
-    counts_ref[e] = 0;
+    countsRand[e] = 0;
+    countsRef[e] = 0;
   });
   Settings settings = Settings();
   settings.useWeights = true;
@@ -29,18 +29,18 @@ int main(List<String> args) {
 
   List<Exercise> collected = FunctionalTraining.dumpFiltered(exercises);
   collected.forEach((e) {
-    counts_ref[e] += 1;
+    countsRef[e] += 1;
   });
 
   for (int i = 0; i < 10000; ++i) {
     FunctionalTraining training = FunctionalTraining.genTraining(exercises, settings);
     training.exercises.forEach((e) {
-      counts_rand[e] += 1;
+      countsRand[e] += 1;
     });
   }
 
-  counts_rand.forEach((key, value) {
-    print("${counts_ref[key]} : $value $key");
+  countsRand.forEach((key, value) {
+    print("${countsRef[key]} : $value $key");
   });
 
   return 0;

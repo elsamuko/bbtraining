@@ -2,10 +2,10 @@
 
 import 'dart:io';
 import 'dart:convert';
-import '../lib/trainings/core.dart';
-import '../lib/trainings/mobility.dart';
-import '../lib/trainings/functional.dart';
-import '../lib/exercise.dart';
+import 'package:bbtraining/trainings/core.dart';
+import 'package:bbtraining/trainings/mobility.dart';
+import 'package:bbtraining/trainings/functional.dart';
+import 'package:bbtraining/exercise.dart';
 
 extension RangeExtension on int {
   List<int> to(int to) => [for (int i = this; i <= to; i++) i];

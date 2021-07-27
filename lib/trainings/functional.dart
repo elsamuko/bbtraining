@@ -1,7 +1,7 @@
-import '../requirement.dart';
-import '../settings.dart';
-import '../exercise.dart';
-import 'training.dart';
+import 'package:bbtraining/requirement.dart';
+import 'package:bbtraining/settings.dart';
+import 'package:bbtraining/exercise.dart';
+import 'package:bbtraining/trainings/training.dart';
 
 class FunctionalTraining extends Training {
   FunctionalTraining() : super(9, 3);
