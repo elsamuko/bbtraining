@@ -61,7 +61,7 @@ class ExerciseViewState extends State<ExerciseView> {
 
     if (widget.exercise.instructions.isNotEmpty) {
       description = Center(
-        child: Container(
+        child: SizedBox(
           width: 290.0,
           child: Card(
               color: Theme.of(context).accentColor,

@@ -17,7 +17,7 @@ class ExercisesViewState extends State<ExercisesView> {
     return Row(
       children: count.each(Row(children: [
         SizedBox(width: 3),
-        Container(
+        SizedBox(
           width: 20,
           child: Center(child: FaIcon(icon, size: 18, color: Colors.white)),
         ),

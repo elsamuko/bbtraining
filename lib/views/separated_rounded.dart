@@ -12,7 +12,7 @@ class SeparatedRounded extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  Container styledButton(BuildContext context, Widget child, Position position) {
+  SizedBox styledButton(BuildContext context, Widget child, Position position) {
     BorderRadius radius;
     switch (position) {
       case Position.Top:
@@ -26,7 +26,7 @@ class SeparatedRounded extends StatelessWidget {
         break;
     }
 
-    return Container(
+    return SizedBox(
         height: height,
         width: 280.0,
         child: Container(
