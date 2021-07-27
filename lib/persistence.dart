@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'package:bbtraining/trainings/core.dart';
-import 'package:bbtraining/trainings/mobility.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 
 import 'exercise.dart';
-import 'trainings/functional.dart';
 import 'trainings/training.dart';
 import 'settings.dart';
 

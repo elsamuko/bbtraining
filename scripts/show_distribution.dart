@@ -5,8 +5,6 @@ import 'dart:convert';
 
 import '../lib/settings.dart';
 import '../lib/trainings/functional.dart';
-import '../lib/trainings/core.dart';
-import '../lib/trainings/mobility.dart';
 import '../lib/exercise.dart';
 
 int main(List<String> args) {

@@ -1,4 +1,3 @@
-import '../level.dart';
 import '../requirement.dart';
 import '../settings.dart';
 import '../exercise.dart';
