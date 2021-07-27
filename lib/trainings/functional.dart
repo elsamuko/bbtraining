@@ -6,7 +6,9 @@ import 'package:bbtraining/trainings/training.dart';
 class FunctionalTraining extends Training {
   FunctionalTraining() : super(9, 3);
 
+  @override
   String get name => "functional_training";
+  @override
   String get beautyName => "Functional Training";
 
   static FunctionalTraining from(List<Exercise> exercises, List<String> names) {
@@ -15,6 +17,7 @@ class FunctionalTraining extends Training {
     return training;
   }
 
+  @override
   void genRequirements(Settings settings) {
     Requirement lower = Requirement("lower", (Exercise exercise) => exercise.isLower());
     Requirement upper = Requirement("upper", (Exercise exercise) => exercise.isUpper());

@@ -6,7 +6,9 @@ import 'package:bbtraining/trainings/training.dart';
 class MobilityTraining extends Training {
   MobilityTraining() : super(5, 0);
 
+  @override
   String get name => "mobility_training";
+  @override
   String get beautyName => "Mobility Training";
 
   static MobilityTraining from(List<Exercise> exercises, List<String> names) {
@@ -15,6 +17,7 @@ class MobilityTraining extends Training {
     return training;
   }
 
+  @override
   void genRequirements(Settings settings) {
     Requirement mobilityExtra = Requirement("mobilityExtra", (Exercise exercise) => exercise.isMobilityExtra());
 

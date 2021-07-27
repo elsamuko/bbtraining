@@ -54,6 +54,7 @@ abstract class Training {
     return exercises.map((e) => e.name).toList();
   }
 
+  @override
   String toString() {
     String s = "";
     int i = 0;
