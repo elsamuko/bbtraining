@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:bbtraining/views//exercise_view.dart';
+import 'package:bbtraining/views/exercise_view.dart';
 import 'package:bbtraining/views/settings_view.dart';
 import 'package:bbtraining/views/exercises_view.dart';
 import 'package:bbtraining/settings.dart';
