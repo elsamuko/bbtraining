@@ -49,9 +49,6 @@ class Exercise {
   bool noBank() => !bank;
 
   bool sameStressAs(String stress) {
-    if (stresses == null) {
-      return false;
-    }
     return stresses.contains(stress);
   }
 
@@ -74,25 +71,48 @@ class Exercise {
   int get hashCode => name.hashCode;
 
   Exercise(
-      {this.name,
-      this.upper,
-      this.lower,
-      this.core,
-      this.strength,
-      this.cardio,
-      this.mobility,
-      this.difficulty,
-      this.weights,
-      this.bank,
-      this.bar,
-      this.floor,
-      this.outdoor,
-      this.stresses,
-      this.pairwise = false,
-      this.reps = 10,
-      this.unit,
-      this.instructions,
-      this.images});
+      {required this.name,
+      required this.upper,
+      required this.lower,
+      required this.core,
+      required this.strength,
+      required this.cardio,
+      required this.mobility,
+      required this.difficulty,
+      required this.weights,
+      required this.bank,
+      required this.bar,
+      required this.floor,
+      required this.outdoor,
+      required this.stresses,
+      required this.pairwise,
+      required this.reps,
+      required this.unit,
+      required this.instructions,
+      required this.images});
+
+  static Exercise empty() {
+    return Exercise(
+        name: "",
+        upper: 0,
+        lower: 0,
+        core: 0,
+        strength: 0,
+        cardio: 0,
+        mobility: 0,
+        difficulty: 0,
+        weights: false,
+        bank: false,
+        bar: false,
+        floor: false,
+        outdoor: false,
+        stresses: [],
+        pairwise: false,
+        reps: 0,
+        unit: "",
+        instructions: [],
+        images: 0);
+  }
 
   @override
   String toString() => name;
