@@ -14,7 +14,7 @@ import 'package:bbtraining/exercise.dart';
 import 'package:bbtraining/persistence.dart';
 
 class TrainingView extends StatefulWidget {
-  TrainingView({Key key}) : super(key: key);
+  TrainingView({Key? key}) : super(key: key);
 
   @override
   TrainingViewState createState() => TrainingViewState();
@@ -23,10 +23,10 @@ class TrainingView extends StatefulWidget {
 enum ExercisePosition { Top, Center, Bottom }
 
 class TrainingViewState extends State<TrainingView> {
-  Settings settings;
+  Settings settings = Settings();
   int current = 0;
   List<Training> trainings = [];
-  List<Exercise> exercises;
+  List<Exercise> exercises = [];
   CarouselController carouselController = CarouselController();
 
   @override
@@ -35,19 +35,24 @@ class TrainingViewState extends State<TrainingView> {
       exercises = value;
       settings = await Persistence.getSettings();
 
-      trainings = [FunctionalTraining(), MobilityTraining(), CoreTraining()];
-      for (int i = 0; i < trainings.length; ++i) {
-        trainings[i] = await Persistence.getTraining(trainings[i], exercises);
-      }
+      trainings = [
+        FunctionalTraining.genTraining(exercises, settings),
+        MobilityTraining.genTraining(exercises, settings),
+        CoreTraining.genTraining(exercises, settings)
+      ];
 
-      if (trainings[0] == null) {
-        trainings[0] = FunctionalTraining.genTraining(exercises, settings);
+      Training? functional = await Persistence.getTraining(trainings[0], exercises);
+      Training? mobility = await Persistence.getTraining(trainings[1], exercises);
+      Training? core = await Persistence.getTraining(trainings[2], exercises);
+
+      if (functional != null) {
+        trainings[0] = functional;
       }
-      if (trainings[1] == null) {
-        trainings[1] = MobilityTraining.genTraining(exercises, settings);
+      if (mobility != null) {
+        trainings[1] = mobility;
       }
-      if (trainings[2] == null) {
-        trainings[2] = CoreTraining.genTraining(exercises, settings);
+      if (core != null) {
+        trainings[2] = core;
       }
 
       for (int i = 0; i < trainings.length; ++i) {
@@ -162,8 +167,9 @@ class TrainingViewState extends State<TrainingView> {
 
   void showExercises() async {
     exercises = await Navigator.of(context).push(MaterialPageRoute<List<Exercise>>(builder: (BuildContext context) {
-      return ExercisesView(exercises);
-    }));
+          return ExercisesView(exercises);
+        })) ??
+        exercises;
     setState(() {
       Persistence.setExercises(exercises);
     });
@@ -171,8 +177,9 @@ class TrainingViewState extends State<TrainingView> {
 
   void showSettings() async {
     settings = await Navigator.of(context).push(MaterialPageRoute<Settings>(builder: (BuildContext context) {
-      return SettingsView(settings);
-    }));
+          return SettingsView(settings);
+        })) ??
+        settings;
     setState(() {
       for (int i = 0; i < trainings.length; ++i) {
         trainings[i].level = settings.level;

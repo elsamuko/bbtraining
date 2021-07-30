@@ -7,9 +7,9 @@ class SeparatedRounded extends StatelessWidget {
   final double height;
 
   SeparatedRounded({
-    @required this.children,
+    required this.children,
     this.height = 40.0,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   SizedBox styledButton(BuildContext context, Widget child, Position position) {

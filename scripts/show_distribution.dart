@@ -29,13 +29,13 @@ int main(List<String> args) {
 
   List<Exercise> collected = FunctionalTraining.dumpFiltered(exercises);
   collected.forEach((e) {
-    countsRef[e] += 1;
+    countsRef.update(e, (value) => value + 1);
   });
 
   for (int i = 0; i < 10000; ++i) {
     FunctionalTraining training = FunctionalTraining.genTraining(exercises, settings);
     training.exercises.forEach((e) {
-      countsRand[e] += 1;
+      countsRand.update(e, (value) => value + 1);
     });
   }
 

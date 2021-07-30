@@ -11,7 +11,7 @@ extension RangeExtension on int {
 class ExerciseView extends StatefulWidget {
   final Exercise exercise;
 
-  ExerciseView(this.exercise, {Key key}) : super(key: key);
+  ExerciseView(this.exercise, {Key? key}) : super(key: key);
 
   @override
   ExerciseViewState createState() => ExerciseViewState();

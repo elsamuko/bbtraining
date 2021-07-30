@@ -37,7 +37,7 @@ class Persistence {
   }
 
   //! loads previous training from prefs
-  static Future<Training> getTraining(Training training, List<Exercise> exercises) async {
+  static Future<Training?> getTraining(Training training, List<Exercise>? exercises) async {
     if (exercises == null) return null;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,7 +58,7 @@ class Persistence {
 
   static Future<Settings> getSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String json = prefs.getString('settings');
+    String? json = prefs.getString('settings');
     if (json == null) return Settings();
     Map<String, dynamic> map = jsonDecode(json);
     return Settings.fromMap(map);

@@ -6,7 +6,7 @@ import 'package:bbtraining/views/exercise_view.dart';
 class ExercisesView extends StatefulWidget {
   List<Exercise> exercises;
 
-  ExercisesView(this.exercises, {Key key}) : super(key: key);
+  ExercisesView(this.exercises, {Key? key}) : super(key: key);
 
   @override
   ExercisesViewState createState() => ExercisesViewState();

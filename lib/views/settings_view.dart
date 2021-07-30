@@ -6,7 +6,7 @@ import 'package:bbtraining/level.dart';
 class SettingsView extends StatefulWidget {
   Settings settings;
 
-  SettingsView(this.settings, {Key key}) : super(key: key);
+  SettingsView(this.settings, {Key? key}) : super(key: key);
 
   @override
   SettingsViewState createState() => SettingsViewState();

@@ -4,14 +4,15 @@ import 'package:bbtraining/settings.dart';
 import 'package:bbtraining/exercise.dart';
 
 abstract class Training {
-  List<Exercise> exercises;
-  List<List<Requirement>> requirements; // requirements for each exercise
+  List<Exercise> exercises = [];
+  List<List<Requirement>> requirements = []; // requirements for each exercise
   Level level = Level.Normal;
   int separatedAt;
 
   Training(int count, this.separatedAt) {
-    exercises = List.filled(count, Exercise());
+    exercises = List.filled(count, Exercise.empty());
     requirements = List.filled(count, []);
+    level = Level.Normal;
   }
 
   String get name;
@@ -44,7 +45,7 @@ abstract class Training {
     for (int i = 0; i < names.length; i++) {
       Exercise exercise = exercises.firstWhere(
         (element) => element.name == names[i],
-        orElse: () => Exercise(name: ""),
+        orElse: () => Exercise.empty(),
       );
       this.exercises[i] = exercise;
     }
