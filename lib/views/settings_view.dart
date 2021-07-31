@@ -4,7 +4,7 @@ import 'package:bbtraining/settings.dart';
 import 'package:bbtraining/level.dart';
 
 class SettingsView extends StatefulWidget {
-  Settings settings;
+  final Settings settings;
 
   SettingsView(this.settings, {Key? key}) : super(key: key);
 
@@ -28,7 +28,7 @@ class SettingsViewState extends State<SettingsView> {
                   icon: Icon(Icons.undo),
                   onPressed: () {
                     setState(() {
-                      widget.settings = Settings();
+                      widget.settings.reset();
                     });
                   },
                 )
