@@ -8,6 +8,15 @@ class Settings {
   bool withOutdoor = false;
   Level level = Level.Normal;
 
+  void reset() {
+    useWeights = false;
+    useBank = true;
+    useBar = false;
+    useFloor = true;
+    withOutdoor = false;
+    level = Level.Normal;
+  }
+
   @override
   bool operator ==(dynamic other) {
     if (this.useWeights != other.useWeights) return false;
