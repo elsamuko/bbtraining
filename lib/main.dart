@@ -13,11 +13,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: const Color(0xff222222),
-        primaryColor: const Color(0xff00835c),
-        accentColor: const Color(0xff800060),
-        buttonColor: const Color(0xff547390),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: const ColorScheme.dark(primary: Colors.white),
+        colorScheme: const ColorScheme.dark(
+          surface: const Color(0xff00835c),
+          primary: Colors.white,
+          primaryVariant: const Color(0xff547390),
+          secondary: const Color(0xff800060),
+        ),
       ),
       home: TrainingView(),
       debugShowCheckedModeBanner: false,

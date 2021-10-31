@@ -64,7 +64,7 @@ class ExerciseViewState extends State<ExerciseView> {
         child: SizedBox(
           width: 290.0,
           child: Card(
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),

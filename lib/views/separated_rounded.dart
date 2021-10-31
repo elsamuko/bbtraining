@@ -31,7 +31,7 @@ class SeparatedRounded extends StatelessWidget {
         width: 280.0,
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
             borderRadius: radius,
           ),
           child: Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: child),

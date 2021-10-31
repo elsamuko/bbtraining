@@ -91,7 +91,7 @@ class TrainingViewState extends State<TrainingView> {
           width: 350,
           margin: EdgeInsets.symmetric(vertical: 2),
           decoration: ShapeDecoration(
-              color: Theme.of(context).accentColor.withOpacity(0.5),
+              color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
               shape: RoundedRectangleBorder(
                 borderRadius: radius,
               )),
@@ -104,7 +104,7 @@ class TrainingViewState extends State<TrainingView> {
                 visualDensity: VisualDensity.compact,
                 padding: EdgeInsets.symmetric(vertical: 18),
                 shape: RoundedRectangleBorder(borderRadius: radius),
-                backgroundColor: Theme.of(context).accentColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
               onPressed: () => showExercise(exercise),
               child: Row(
@@ -298,7 +298,7 @@ class TrainingViewState extends State<TrainingView> {
             width: 100,
             child: TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Theme.of(context).accentColor,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
               key: Key("gen_training"),
               onPressed: () async {
@@ -321,7 +321,7 @@ class TrainingViewState extends State<TrainingView> {
         Container(
           width: 100,
           child: TextButton(
-              style: TextButton.styleFrom(backgroundColor: Theme.of(context).buttonColor),
+              style: TextButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primaryVariant),
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: trainings[current].toString()));
                 final snackBar = SnackBar(
