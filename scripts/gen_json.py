@@ -30,8 +30,11 @@ df = df.fillna(0)
 exercises = []
 df.apply(lambda row: exercises.append(row.to_dict()), axis=1)
 
+# remove outcommented exercises starting with #
+exercises = [exercise for exercise in exercises if not exercise["exercise"].startswith("#")]
+
 # add number of images for this exercise in res/images
 [add_image_count(exercise) for exercise in exercises]
 
 # dump as json
-print(json.dumps(exercises))
+print(json.dumps(exercises, indent=4))
