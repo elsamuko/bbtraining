@@ -1,5 +1,6 @@
 import 'package:bbtraining/exercise.dart';
 import 'dart:math';
+import 'package:bbtraining/log.dart';
 
 typedef ExerciseCallback = bool Function(Exercise exercise);
 
@@ -19,6 +20,14 @@ class Requirement {
 
   static Exercise randomWithRequirements(List<Exercise> exercises, List<Requirement> requirements) {
     List<Exercise> filtered = allWithRequirements(exercises, requirements);
+
+    // ensure, filtered list is not empty by dropping requirements
+    while (filtered.length == 0) {
+      log("no exercise with these requirements, dropping last requirement ${requirements.last}");
+      requirements.removeLast();
+      filtered = allWithRequirements(exercises, requirements);
+    }
+
     return filtered[random.nextInt(filtered.length)];
   }
 }
