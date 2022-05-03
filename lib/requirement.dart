@@ -1,6 +1,7 @@
 import 'package:bbtraining/exercise.dart';
 import 'dart:math';
 import 'package:bbtraining/log.dart';
+import 'package:dart_random_choice/dart_random_choice.dart';
 
 typedef ExerciseCallback = bool Function(Exercise exercise);
 
@@ -28,6 +29,7 @@ class Requirement {
       filtered = allWithRequirements(exercises, requirements);
     }
 
-    return filtered[random.nextInt(filtered.length)];
+    List<double> weights = filtered.map((e) => e.weight).toList();
+    return randomChoice(filtered, weights);
   }
 }

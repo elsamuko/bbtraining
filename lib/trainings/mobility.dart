@@ -18,6 +18,11 @@ class MobilityTraining extends Training {
   }
 
   @override
+  List<double> getWeights(List<Exercise> exercises) {
+    return List<double>.filled(exercises.length, 1.0);
+  }
+
+  @override
   void genRequirements(Settings settings) {
     Requirement mobilityExtra = Requirement("mobilityExtra", (Exercise exercise) => exercise.isMobilityExtra());
 

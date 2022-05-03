@@ -2,6 +2,7 @@ import 'package:bbtraining/requirement.dart';
 import 'package:bbtraining/settings.dart';
 import 'package:bbtraining/exercise.dart';
 import 'package:bbtraining/trainings/training.dart';
+import 'dart:math';
 
 class FunctionalTraining extends Training {
   FunctionalTraining() : super(9, 3);
@@ -15,6 +16,27 @@ class FunctionalTraining extends Training {
     FunctionalTraining training = FunctionalTraining();
     training.fromStringList(exercises, names);
     return training;
+  }
+
+  @override
+  List<double> getWeights(List<Exercise> exercises) {
+    List<double> weights = List<double>.filled(exercises.length, 0.0);
+
+    for (int i = 0; i < exercises.length; ++i) {
+      weights[i] = (exercises[i].isCardio() ? 1 : 0) +
+          (exercises[i].isStrength() ? 0 : 1) +
+          (exercises[i].isMobility() ? 1 : 0) +
+          (exercises[i].isUpper() ? 1 : 0) +
+          (exercises[i].isLower() ? 2 : 0);
+    }
+
+    double maxWeight = weights.reduce(max).toDouble();
+
+    for (int i = 0; i < exercises.length; ++i) {
+      weights[i] = (maxWeight - (weights[i] - 1.0)) / maxWeight;
+    }
+
+    return weights;
   }
 
   @override

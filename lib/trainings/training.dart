@@ -24,9 +24,17 @@ abstract class Training {
 
   void genRequirements(Settings settings);
 
+  List<double> getWeights(List<Exercise> exercises);
+
   void gen(List<Exercise> exercises, Settings settings) {
     genRequirements(settings);
     level = settings.level;
+
+    // add weights to exercises
+    List<double> weights = getWeights(exercises);
+    for (int i = 0; i < weights.length; ++i) {
+      exercises[i].weight = weights[i];
+    }
 
     for (int i = 0; i < this.exercises.length; ++i) {
       this.exercises[i] = Requirement.randomWithRequirements(exercises, requirements[i]);
@@ -37,6 +45,13 @@ abstract class Training {
     if (position > this.exercises.length) {
       return;
     }
+
+    // add weights to exercises
+    List<double> weights = getWeights(exercises);
+    for (int i = 0; i < weights.length; ++i) {
+      exercises[i].weight = weights[i];
+    }
+
     Exercise newOne = Requirement.randomWithRequirements(exercises, requirements[position]);
     this.exercises[position] = newOne;
   }
