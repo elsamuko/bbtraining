@@ -1,6 +1,7 @@
 import 'package:bbtraining/level.dart';
 
 class Exercise {
+  double weight = 1.0; // probability
   String name;
   bool enabled = true;
   int upper;
