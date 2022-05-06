@@ -91,12 +91,12 @@ class ExerciseViewState extends State<ExerciseView> {
     }
 
     Widget stats = SeparatedRounded(height: 33, children: [
-      line("Upper", widget.exercise.upper, FontAwesomeIcons.arrowAltCircleUp),
-      line("Lower", widget.exercise.lower, FontAwesomeIcons.arrowAltCircleDown),
-      line("Core", widget.exercise.core, FontAwesomeIcons.dotCircle),
-      line("Strength", widget.exercise.strength, FontAwesomeIcons.fistRaised),
-      line("Cardio", widget.exercise.cardio, FontAwesomeIcons.heartbeat),
-      line("Mobility", widget.exercise.mobility, FontAwesomeIcons.expandArrowsAlt),
+      line("Upper", widget.exercise.upper, FontAwesomeIcons.circleUp),
+      line("Lower", widget.exercise.lower, FontAwesomeIcons.circleDown),
+      line("Core", widget.exercise.core, FontAwesomeIcons.circleDot),
+      line("Strength", widget.exercise.strength, FontAwesomeIcons.handFist),
+      line("Cardio", widget.exercise.cardio, FontAwesomeIcons.heartPulse),
+      line("Mobility", widget.exercise.mobility, FontAwesomeIcons.maximize),
       line("Difficulty", widget.exercise.difficulty, FontAwesomeIcons.star),
     ]);
 
