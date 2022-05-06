@@ -3,7 +3,7 @@ import 'package:bbtraining/trainings/mobility.dart';
 import 'package:bbtraining/trainings/training.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:bbtraining/views/exercise_view.dart';
 import 'package:bbtraining/views/settings_view.dart';
