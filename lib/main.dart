@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme.dark(
           surface: const Color(0xff00835c),
           primary: Colors.white,
-          primaryVariant: const Color(0xff547390),
+          primaryContainer: const Color(0xff547390),
           secondary: const Color(0xff800060),
         ),
       ),

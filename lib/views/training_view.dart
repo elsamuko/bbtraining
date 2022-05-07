@@ -321,7 +321,7 @@ class TrainingViewState extends State<TrainingView> {
         Container(
           width: 100,
           child: TextButton(
-              style: TextButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primaryVariant),
+              style: TextButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primaryContainer),
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: trainings[current].toString()));
                 final snackBar = SnackBar(
