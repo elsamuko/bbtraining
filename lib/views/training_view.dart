@@ -203,7 +203,8 @@ class TrainingViewState extends State<TrainingView> {
   PopupMenuButton<BBOpts> buildPopUpButton() {
     return PopupMenuButton<BBOpts>(
       key: Key("options_menu"),
-      icon: Icon(const IconData(128059)), // https://emojiguide.org/bear
+      // https://github.com/googlefonts/noto-emoji/releases/tag/v2015-09-29-license-apache
+      icon: Image.asset("res/emoji_u1f43b.png"),
       onSelected: (BBOpts result) {
         switch (result) {
           case BBOpts.Settings:

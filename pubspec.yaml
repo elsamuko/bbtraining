@@ -68,6 +68,7 @@ flutter:
   assets:
     - res/exercises.json
     - res/images/
+    - res/emoji_u1f43b.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
