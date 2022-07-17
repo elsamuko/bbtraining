@@ -13,13 +13,13 @@ function createJSON {
 
 function createBundle {
   echo "Create bundle"
-  flutter build appbundle --no-shrink --no-tree-shake-icons
+  flutter build appbundle --no-shrink
   cp "build/app/outputs/bundle/release/app-release.aab" "tmp/bbtraining-$GIT_TAG.aab"
 }
 
 function createAPKs {
   echo "Create apks"
-  flutter build apk --no-shrink --split-per-abi --no-tree-shake-icons
+  flutter build apk --no-shrink --split-per-abi
   cp "build/app/outputs/apk/release/app-arm64-v8a-release.apk" "tmp/bbtraining-arm64-v8a-$GIT_TAG.apk"
   cp "build/app/outputs/apk/release/app-armeabi-v7a-release.apk" "tmp/bbtraining-armeabi-v7a-$GIT_TAG.apk"
 }
