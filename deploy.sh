@@ -24,6 +24,12 @@ function createAPKs {
   cp "build/app/outputs/apk/release/app-armeabi-v7a-release.apk" "tmp/bbtraining-armeabi-v7a-$GIT_TAG.apk"
 }
 
+function createWeb {
+  echo "Create web"
+  flutter build web
+  tar -czvf "tmp/bbtraining-web-$GIT_TAG.tar.gz" "build/web"
+}
+
 doPrepare
 createJSON
 createBundle
