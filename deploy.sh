@@ -26,7 +26,7 @@ function createAPKs {
 
 function createWeb {
   echo "Create web"
-  flutter build web
+  flutter build web --base-href "/bbtraining-web/web/"
   tar -czvf "tmp/bbtraining-web-$GIT_TAG.tar.gz" "build/web"
 }
 
