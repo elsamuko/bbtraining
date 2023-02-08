@@ -21,7 +21,6 @@ function createAPKs {
   echo "Create apks"
   flutter build apk --no-shrink --split-per-abi
   cp "build/app/outputs/apk/release/app-arm64-v8a-release.apk" "tmp/bbtraining-arm64-v8a-$GIT_TAG.apk"
-  cp "build/app/outputs/apk/release/app-armeabi-v7a-release.apk" "tmp/bbtraining-armeabi-v7a-$GIT_TAG.apk"
 }
 
 function createWeb {
