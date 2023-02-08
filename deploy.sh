@@ -26,8 +26,16 @@ function createAPKs {
 
 function createWeb {
   echo "Create web"
+
+  convert res/launcher/icon.png -resize 16x16 web/favicon.png
+  convert res/launcher/icon.png -resize 192x192 web/icons/Icon-192.png
+  convert res/launcher/icon.png -resize 192x192 web/icons/Icon-maskable-192.png
+  convert res/launcher/icon.png -resize 512x512 web/icons/Icon-512.png
+  convert res/launcher/icon.png -resize 512x512 web/icons/Icon-maskable-512.png
+
   flutter build web --base-href "/bbtraining-web/web/"
   tar -czvf "tmp/bbtraining-web-$GIT_TAG.tar.gz" "build/web"
+  cp -r "build/web/" "../bbtraining-web/"
 }
 
 doPrepare
