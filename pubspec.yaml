@@ -18,11 +18,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.11.0+17
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   font_awesome_flutter: ^10.2.1 # MIT https://github.com/fluttercommunity/font_awesome_flutter/blob/master/LICENSE.md
-  package_info_plus: ^3.0.2     # BSD https://pub.dev/packages/package_info_plus/license
+  package_info_plus: ^3.1.2     # BSD https://pub.dev/packages/package_info_plus/license
   shared_preferences: ^2.0.17   # BSD https://github.com/flutter/plugins/blob/master/packages/shared_preferences/shared_preferences/LICENSE
   carousel_slider: ^4.2.1       # MIT https://github.com/serenader2014/flutter_carousel_slider/blob/master/LICENSE
   dart_random_choice: ^0.2.0    # MIT https://pub.dev/packages/dart_random_choice/license
@@ -37,7 +37,7 @@ dependencies:
 
 dev_dependencies:
   test:
-  flutter_launcher_icons: ^0.11.0
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
   flutter_driver:
