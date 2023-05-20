@@ -200,6 +200,17 @@ class TrainingViewState extends State<TrainingView> {
         });
   }
 
+  // copy current training to clipboard
+  void copyToClipboard() {
+    Clipboard.setData(ClipboardData(text: trainings[current].toString()));
+    final snackBar = SnackBar(
+        content: Text(
+      "Copied ${trainings[current].beautyName.toLowerCase()} into clipboard",
+      textAlign: TextAlign.center,
+    ));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   PopupMenuButton<BBOpts> buildPopUpButton() {
     return PopupMenuButton<BBOpts>(
       key: Key("options_menu"),
@@ -212,6 +223,9 @@ class TrainingViewState extends State<TrainingView> {
             break;
           case BBOpts.Exercises:
             showExercises();
+            break;
+          case BBOpts.Clipboard:
+            copyToClipboard();
             break;
           case BBOpts.About:
             showAbout();
@@ -319,21 +333,6 @@ class TrainingViewState extends State<TrainingView> {
               },
               child: Text("Training"),
             )),
-        Container(
-          width: 100,
-          child: TextButton(
-              style: TextButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primaryContainer),
-              onPressed: () {
-                Clipboard.setData(ClipboardData(text: trainings[current].toString()));
-                final snackBar = SnackBar(
-                    content: Text(
-                  "Copied ${trainings[current].beautyName.toLowerCase()} into clipboard",
-                  textAlign: TextAlign.center,
-                ));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-              child: Text("Clipboard")),
-        ),
         IconButton(
           icon: Icon(Icons.keyboard_arrow_down),
           onPressed: () => carouselController.nextPage(),
@@ -356,7 +355,7 @@ class TrainingViewState extends State<TrainingView> {
   }
 }
 
-enum BBOpts { Settings, Exercises, About }
+enum BBOpts { Settings, Exercises, Clipboard, About }
 
 extension Name on BBOpts {
   String get name {
@@ -365,6 +364,8 @@ extension Name on BBOpts {
         return "Settings";
       case BBOpts.Exercises:
         return "Exercises";
+      case BBOpts.Clipboard:
+        return "Copy to Clipboard";
       case BBOpts.About:
         return "About";
       default:
