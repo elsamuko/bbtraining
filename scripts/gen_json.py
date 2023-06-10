@@ -9,12 +9,19 @@ import glob
 import os
 
 
+def error(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
 def add_image_count(exercise):
     """
     images for exercises are in res/images/${exercise}_#.jpg
     """
     glob_name = image_path + exercise["exercise"] + "*"
-    exercise['images'] = len(glob.glob(glob_name))
+    count = len(glob.glob(glob_name))
+    exercise['images'] = count
+    if count == 0:
+        error(f"No image for exercise {exercise['exercise']}")
 
 
 # path to ./scripts/../res/images
