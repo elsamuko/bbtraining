@@ -8,10 +8,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // https://docs.flutter.dev/release/breaking-changes/buttons#restoring-the-original-button-visuals
+    final ButtonStyle flatButtonStyle = TextButton.styleFrom(
+      minimumSize: Size(88, 36),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+      ),
+    );
+
     return MaterialApp(
       title: 'BB Training',
       theme: ThemeData(
         brightness: Brightness.dark,
+        textButtonTheme: TextButtonThemeData(style: flatButtonStyle),
         scaffoldBackgroundColor: const Color(0xff111111),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: const ColorScheme.dark(
