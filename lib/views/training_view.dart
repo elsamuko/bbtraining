@@ -102,7 +102,7 @@ class TrainingViewState extends State<TrainingView> {
               key: Key("exercise_$pos"),
               style: TextButton.styleFrom(
                 visualDensity: VisualDensity.compact,
-                padding: EdgeInsets.symmetric(vertical: 18),
+                padding: EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: radius),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
