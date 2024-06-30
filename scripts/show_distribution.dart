@@ -41,7 +41,7 @@ int main(List<String> args) {
     });
   }
 
-  final sorted = SplayTreeMap<Exercise, int>.from(countsRand, (l, r) => countsRand[l]!.compareTo(countsRand[r]!));
+  final sorted = Map.fromEntries(countsRand.entries.toList()..sort((e1, e2) => e1.value.compareTo(e2.value)));
   sorted.forEach((key, value) {
     var c = key.isCardio() ? "C" : "_";
     var s = key.isStrength() ? "S" : "_";
@@ -49,7 +49,7 @@ int main(List<String> args) {
     var u = key.isUpper() ? "U" : "_";
     var l = key.isLower() ? "L" : "_";
 
-    print(sprintf("%1i : %4i [$c$s$m$u$l] %.2f $key", [countsRef[key], value, key.weight]));
+    print(sprintf("%1i : %4i [$c$s$m][$u$l] %.2f $key", [countsRef[key], value, key.weight]));
   });
 
   return 0;
