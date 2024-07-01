@@ -12,6 +12,14 @@ class SettingsView extends StatefulWidget {
   SettingsViewState createState() => SettingsViewState();
 }
 
+Text createTitle(String s, bool b) {
+  return Text(s, style: TextStyle(color: b ? Colors.white : Colors.white38));
+}
+
+FaIcon createIcon(IconData i, bool b) {
+  return FaIcon(i, color: b ? Colors.white : Colors.white38);
+}
+
 class SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
@@ -37,8 +45,8 @@ class SettingsViewState extends State<SettingsView> {
             body: ListView(
               children: [
                 SwitchListTile(
-                  secondary: FaIcon(FontAwesomeIcons.dumbbell),
-                  title: Text("Use weights"),
+                  secondary: createIcon(FontAwesomeIcons.dumbbell, widget.settings.useWeights),
+                  title: createTitle("Use weights", widget.settings.useWeights),
                   value: widget.settings.useWeights,
                   onChanged: (v) {
                     setState(() {
@@ -47,8 +55,8 @@ class SettingsViewState extends State<SettingsView> {
                   },
                 ),
                 SwitchListTile(
-                  secondary: FaIcon(FontAwesomeIcons.chair),
-                  title: Text("Use bank"),
+                  secondary: createIcon(FontAwesomeIcons.chair, widget.settings.useBank),
+                  title: createTitle("Use bank", widget.settings.useBank),
                   value: widget.settings.useBank,
                   onChanged: (v) {
                     setState(() {
@@ -57,8 +65,8 @@ class SettingsViewState extends State<SettingsView> {
                   },
                 ),
                 SwitchListTile(
-                  secondary: FaIcon(FontAwesomeIcons.waveSquare),
-                  title: Text("Use bar"),
+                  secondary: createIcon(FontAwesomeIcons.waveSquare, widget.settings.useBar),
+                  title: createTitle("Use bar", widget.settings.useBar),
                   value: widget.settings.useBar,
                   onChanged: (v) {
                     setState(() {
@@ -67,8 +75,8 @@ class SettingsViewState extends State<SettingsView> {
                   },
                 ),
                 SwitchListTile(
-                  secondary: FaIcon(FontAwesomeIcons.download),
-                  title: Text("Use floor"),
+                  secondary: createIcon(FontAwesomeIcons.download, widget.settings.useFloor),
+                  title: createTitle("Use floor", widget.settings.useFloor),
                   value: widget.settings.useFloor,
                   onChanged: (v) {
                     setState(() {
@@ -77,8 +85,8 @@ class SettingsViewState extends State<SettingsView> {
                   },
                 ),
                 SwitchListTile(
-                  secondary: FaIcon(FontAwesomeIcons.cloudSun),
-                  title: Text("With Outdoor"),
+                  secondary: createIcon(FontAwesomeIcons.cloudSun, widget.settings.withOutdoor),
+                  title: createTitle("With outdoor", widget.settings.withOutdoor),
                   value: widget.settings.withOutdoor,
                   onChanged: (v) {
                     setState(() {
