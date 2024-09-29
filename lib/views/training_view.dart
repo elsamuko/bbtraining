@@ -27,7 +27,7 @@ class TrainingViewState extends State<TrainingView> {
   int current = 0;
   List<Training> trainings = [];
   List<Exercise> exercises = [];
-  CarouselController carouselController = CarouselController();
+  CarouselSliderController carouselController = CarouselSliderController();
 
   @override
   void initState() {
