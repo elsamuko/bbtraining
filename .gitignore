@@ -3,6 +3,7 @@
 !.gitignore
 !*/
 !*.dart
+!*.gradle.kts
 screenshots
 !res/images/*
 
