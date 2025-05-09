@@ -26,7 +26,7 @@ dependencies:
   shared_preferences: ^2.2.3    # BSD https://github.com/flutter/plugins/blob/master/packages/shared_preferences/shared_preferences/LICENSE
   carousel_slider: ^5.0.0       # MIT https://github.com/serenader2014/flutter_carousel_slider/blob/master/LICENSE
   dart_random_choice: ^0.2.0    # MIT https://pub.dev/packages/dart_random_choice/license
-  intl: ^0.19.0                 # BSD https://pub.dev/packages/intl/license
+  intl: ^0.20.2                 # BSD https://pub.dev/packages/intl/license
   sprintf: ^7.0.0               # BSD https://pub.dev/packages/sprintf/license
   flutter:
     sdk: flutter
